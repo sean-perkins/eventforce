@@ -44,7 +44,7 @@ export class Event {
         this.start = options.Start__c;
         this.end = options.End__c;
         this.status = options.Status__c;
-        this.sessions = Array.isArray(options.Sessions__c) ? options.Sessions__c : [];
+        this.sessions = Array.isArray(options.Sessions__c) ? options.Sessions__c.map((session: any) => new Session(session)) : [];
         this.attendees = Array.isArray(options.Attendees__c) ? options.Attendees__c : [];
     }
 

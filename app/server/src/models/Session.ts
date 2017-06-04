@@ -3,6 +3,11 @@ import { Status } from './Status';
 export class Session {
 
     static Model = 'Session__c';
+
+    /**
+     * Represents the salesforce id
+     */
+    id: string;
     /**
      * The name of the event session
      */
@@ -28,11 +33,12 @@ export class Session {
      */
     attendees: Attendee[];
 
-    constructor(options: Session = <Session>{}) {
-        this.name = options.name;
-        this.end = options.end;
-        this.start = options.start;
-        this.status = options.status;
+    constructor(options: any = <Session>{}) {
+        this.id = options.Id;
+        this.name = options.Name;
+        this.end = options.End__c;
+        this.start = options.Start__c;
+        this.status = options.Status__c;
         this.attendees = Array.isArray(options.attendees) ? options.attendees : [];
     }
 }
