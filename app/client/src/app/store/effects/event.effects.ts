@@ -12,14 +12,11 @@ import * as actions from '../actions/event.action';
 export class EventEffects {
 
     @Effect() getEvents$: Observable<Action> = this.actions$
-        .ofType(EventState.ActionTypes.FETCH_EVENTS)
+        .ofType(EventState.ActionTypes.FETCH)
         .startWith(new actions.InitAction)
         .switchMap(() => this.eventService.getEvents())
-        .map(payload => {
-            console.log('here we are!', payload);
-            return payload;
-        })
-        .catch(() => Observable.of(null));
+        .map(payload => new actions.FetchEventsCompleteAction(payload))
+        .catch(() => Observable.of(new actions.FetchEventsFailedAction));
 
     constructor(
         private actions$: Actions,

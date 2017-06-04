@@ -1,0 +1,23 @@
+@import '~assets/scss/colors';
+
+:host {
+
+    .label {
+        border-radius:5px;
+        padding:5px 10px;
+        background:$grey800;
+        font-size:12px;
+        font-weight:800;
+        &.open {
+            background:$green500;
+            color:$grey900;
+        }
+        &.sold-out {
+            background:$red500;
+            color:$grey900;
+        }
+        &.closed {
+
+        }
+    }
+}

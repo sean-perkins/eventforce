@@ -1,10 +1,9 @@
-// libs
-import { Observable } from 'rxjs/Observable';
+import { environment } from '../../environments/environment';
 import { ActionReducer } from '@ngrx/store';
-import '@ngrx/core/add/operator/select';
 import { compose } from '@ngrx/core/compose';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { combineReducers } from '@ngrx/store';
+import { getEventsSearching } from './states/event.state';
 import * as appReducers from './reducers/index';
 import * as appStates from './states/index';
 
@@ -20,9 +19,15 @@ const developmentReducer: ActionReducer<IAppState> = compose(storeFreeze, combin
 const productionReducer: ActionReducer<IAppState> = combineReducers(reducers);
 
 export function AppReducer(state: any, action: any) {
-    if (String('<%= BUILD_TYPE %>') === 'dev') {
-        return developmentReducer(state, action);
-    } else {
+    if (environment.production) {
         return productionReducer(state, action);
+    } else {
+        return developmentReducer(state, action);
     }
 }
+
+export {
+    getEvents,
+    getEventsLoading,
+    getEventsSearching
+} from './states/event.state';

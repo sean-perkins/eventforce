@@ -1,3 +1,5 @@
 <p>
   event-list works!
 </p>
+
+<ef-event-list-item [event]="event" *ngFor="let event of events$ | async"></ef-event-list-item>

@@ -1,0 +1,36 @@
+@import '~assets/scss/colors';
+
+$min-height: 120px;
+
+:host {
+    display:block;
+    position:relative;
+}
+
+.event-row {
+    display:block;
+    background: $grey900;
+    min-height:$min-height;
+    .date-container {
+        position:relative;
+        .day {
+            font-weight:800;
+            font-size:42px;
+        }
+        .month {
+            font-size:12px;
+        }
+    }
+    .registrations {
+        position:absolute;
+        top:20px;
+        right:20px;
+        font-size:20px;
+        font-weight:600;
+        .label {
+            font-size:12px;
+            font-weight:400;
+        }
+    }
+}
+

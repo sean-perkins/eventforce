@@ -7,10 +7,23 @@ export class InitAction implements Action {
 }
 
 export class FetchEventsAction implements Action {
-    type = EventState.ActionTypes.FETCH_EVENTS;
-    constructor(public payload: any) {}
+    type = EventState.ActionTypes.FETCH;
+    constructor(public payload?: any) {}
+}
+
+export class FetchEventsCompleteAction implements Action {
+    type = EventState.ActionTypes.FETCH_COMPLETE;
+    constructor(public payload: any[]) {}
+}
+
+export class FetchEventsFailedAction implements Action {
+    type = EventState.ActionTypes.FETCH_FAILED;
+    payload = null;
 }
 
 
 export type Actions
-    = InitAction;
+    = InitAction
+    | FetchEventsAction
+    | FetchEventsCompleteAction
+    | FetchEventsFailedAction;
