@@ -22,6 +22,7 @@ export let getEvents = (req: Request, res: Response, next: NextFunction) => {
         connection.sobject(Event.Model)
             .select('Id, Name, Start__c, End__c, Registration_Limit__c, Status__c')
             .where(`Status__c != 'Draft'`)
+            .orderby('Start__c', 'ASC')
             .execute((err: any, result: any[]) => {
                 if (err) {
                     return console.error(err);
