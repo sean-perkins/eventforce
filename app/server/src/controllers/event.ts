@@ -4,7 +4,7 @@ import * as async from 'async';
 import * as request from 'request';
 import * as jsforce from 'jsforce';
 import { Response, Request, NextFunction } from 'express';
-import { SalesForceUser, Event } from './../models/index';
+import { SalesForceUser, Event, Session } from './../models/index';
 
 const connection: any = new jsforce.Connection({
     instanceUrl: SalesForceUser.InstanceUrl
@@ -22,6 +22,7 @@ export let getEvents = (req: Request, res: Response, next: NextFunction) => {
         connection.sobject(Event.Model)
             .select('Id, Name, Start__c, End__c, Registration_Limit__c, Status__c')
             .where(`Status__c != 'Draft'`)
+            .orderby('Start__c', 'ASC')
             .execute((err: any, result: any[]) => {
                 if (err) {
                     return console.error(err);
@@ -44,13 +45,19 @@ export let getEvent = (req: Request, res: Response, next: NextFunction) => {
             return console.error(err);
         }
         connection.sobject(Event.Model)
-            .select('Id, Name')
-            .where(`Id = '${req.params.id}'`)
-            .execute((err: any, result: any) => {
+            .retrieve(req.params.id, (err: any, event: any) => {
                 if (err) {
                     return console.error(err);
                 }
-                res.json(result.map((event: any) => new Event(event))[0]);
+                connection.sobject(Session.Model)
+                    .select('*')
+                    .where(`Event__c = '${req.params.id}'`)
+                    .execute((err: any, sessions: any[]) => {
+                        event = new Event((<any>Object).assign(event, {
+                            Sessions__c: sessions
+                        }));
+                        res.json(event);
+                    });
             });
     });
 };
