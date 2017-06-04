@@ -7,19 +7,19 @@ export class Event {
     /**
      * Represents the salesforce id
      */
-    Id: string;
+    id: string;
     /**
      * The name of the Event
      */
-    Name: string;
+    name: string;
     /**
      * The end date-time of the event
      */
-    end: number;
+    end: string;
     /**
      * The start date-time of the event
      */
-    start: number;
+    start: string;
     /**
      * The maximum number of attendees that can register to the event
      */
@@ -37,14 +37,15 @@ export class Event {
      */
     attendees: Attendee[];
 
-    constructor (options: Event  = <Event>{}) {
-        this.Id = options.Id;
-        this.Name = options.Name;
-        this.start = options.start;
-        this.end = options.end;
-        this.status = options.status;
-        this.sessions = Array.isArray(options.sessions) ? options.sessions : [];
-        this.attendees = Array.isArray(options.attendees) ? options.attendees : [];
+    constructor (options: any  = <Event>{}) {
+        this.id = options.Id;
+        this.name = options.Name;
+        this.registrationLimit = options.Registration_Limit__c;
+        this.start = options.Start__c;
+        this.end = options.End__c;
+        this.status = options.Status__c;
+        this.sessions = Array.isArray(options.Sessions__c) ? options.Sessions__c : [];
+        this.attendees = Array.isArray(options.Attendees__c) ? options.Attendees__c : [];
     }
 
 }

@@ -1,13 +1,13 @@
 <div class="event-row" fxLayout="row" fxLayoutAlign="space-between center" *ngIf="event">
     <div fxFlex="10%" class="text-left date-container">
         <div class="start-date vertical-center left-margin-4">
-            <span class="day">01</span>
-            <span class="month">DECEMBER</span>
+            <span class="day" [innerText]="event.start | day"></span>
+            <span class="month" [innerText]="event.start | month"></span>
         </div>
     </div>
     <div fxFlex="85%">
-        <h2 [innerText]="event.Name"></h2>
-        <ef-event-status status="Open"></ef-event-status>
+        <h2 [innerText]="event.name"></h2>
+        <ef-event-status [status]="event.status"></ef-event-status>
     </div>
     <span class="registrations text-right">
         <span>50</span>

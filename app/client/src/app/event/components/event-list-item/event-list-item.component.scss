@@ -10,6 +10,7 @@ $min-height: 120px;
 .event-row {
     display:block;
     background: $grey900;
+    border-bottom:1px solid $grey800;
     min-height:$min-height;
     .date-container {
         position:relative;
@@ -19,6 +20,7 @@ $min-height: 120px;
         }
         .month {
             font-size:12px;
+            text-transform: uppercase;
         }
     }
     .registrations {

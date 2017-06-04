@@ -1,3 +1,4 @@
+import { ForceDateModule } from './../date/date.module';
 import { EventRoutingModule } from './event-routing.module';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -11,7 +12,8 @@ import { EventStatusComponent } from './components/event-status/event-status.com
     imports: [
         CommonModule,
         FlexLayoutModule,
-        EventRoutingModule
+        EventRoutingModule,
+        ForceDateModule
     ],
     declarations: [
         EventListComponent,

@@ -20,7 +20,8 @@ export let getEvents = (req: Request, res: Response, next: NextFunction) => {
             return console.error(err);
         }
         connection.sobject(Event.Model)
-            .select('Id, Name')
+            .select('Id, Name, Start__c, End__c, Registration_Limit__c, Status__c')
+            .where(`Status__c != 'Draft'`)
             .execute((err: any, result: any[]) => {
                 if (err) {
                     return console.error(err);
