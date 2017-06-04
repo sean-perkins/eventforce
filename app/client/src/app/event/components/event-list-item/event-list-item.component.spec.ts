@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, Input } from '@angular/core';
+import { Component, Pipe, Input } from '@angular/core';
 import { EventListItemComponent } from './event-list-item.component';
 
 @Component({
@@ -10,6 +10,24 @@ class MockEventStatusComponent {
     @Input() status: string;
 }
 
+@Pipe({
+    name: 'day'
+})
+class MockDayPipe {
+    transform(value: any, args?: any): any {
+        return value;
+    }
+}
+
+@Pipe({
+    name: 'month'
+})
+class MockMonthPipe {
+    transform(value: any, args?: any): any {
+        return value;
+    }
+}
+
 describe('EventListItemComponent', () => {
     let component: EventListItemComponent;
     let fixture: ComponentFixture<EventListItemComponent>;
@@ -18,7 +36,9 @@ describe('EventListItemComponent', () => {
         TestBed.configureTestingModule({
             declarations: [
                 EventListItemComponent,
-                MockEventStatusComponent
+                MockEventStatusComponent,
+                MockDayPipe,
+                MockMonthPipe
             ]
         })
             .compileComponents();
