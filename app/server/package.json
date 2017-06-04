@@ -6,12 +6,12 @@
     "type": "git",
     "url": "https://github.com/sean-perkins/eventforce-server.git"
   },
-  "author": "Bowden Kelly",
+  "author": "Sean Perkins <sean-perkins>",
   "license": "MIT",
   "scripts": {
     "start": "npm run build && npm run watch",
     "build": "npm run build-ts && npm run tslint",
-    "serve": "node dist/server.js",
+    "serve": "node dist/server/server.js",
     "watch": "concurrently -k -p \"[{name}]\" -n \"Sass,TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\" \"nodemon dist/server.js\"",
     "test": "jest --forceExit",
     "build-ts": "tsc",

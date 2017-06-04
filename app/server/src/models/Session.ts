@@ -1,6 +1,8 @@
 import { Attendee } from './Attendee';
 import { Status } from './Status';
 export class Session {
+
+    static Model = 'Session__c';
     /**
      * The name of the event session
      */
