@@ -1,1 +1,4 @@
-<ef-event-list-item [event]="event" *ngFor="let event of events$ | async"></ef-event-list-item>
+
+<ef-event-list-item
+    *ngFor="let event of events$ | async"
+    [event]="event"></ef-event-list-item>

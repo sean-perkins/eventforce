@@ -1,8 +1,10 @@
-<div class="event-row" fxLayout="row" fxLayoutAlign="space-between center" *ngIf="event">
+<div class="event-row" fxLayout="row" fxLayoutAlign="space-between center"
+    *ngIf="event"
+    (click)="toggleSessions()">
     <div fxFlex="10%" class="text-left date-container">
         <div class="start-date vertical-center left-margin-4">
             <span class="day" [innerText]="event.start | day"></span>
-            <span class="month" [innerText]="event.start | month"></span>
+            <div class="month" [innerText]="event.start | month"></div>
         </div>
     </div>
     <div fxFlex="85%">
@@ -12,7 +14,11 @@
     <span class="registrations text-right">
         <span>50</span>
         <span>/</span>
-        <span>150</span>
+        <span [innerText]="event.registrationLimit || '∞'"></span>
         <div class="label">Available Seats</div>
     </span>
+</div>
+<div class="session-section" [hidden]="!displaySessions">
+    <p *ngFor="let session of sessions"
+        [innerText]="session.name"></p>
 </div>

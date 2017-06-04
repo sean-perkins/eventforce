@@ -5,6 +5,7 @@ $min-height: 120px;
 :host {
     display:block;
     position:relative;
+    cursor: pointer;
 }
 
 .event-row {
@@ -34,5 +35,10 @@ $min-height: 120px;
             font-weight:400;
         }
     }
+}
+.session-section {
+    min-height:50px;
+    background:darken($grey900, 5%);
+    padding:0 40px;
 }
 

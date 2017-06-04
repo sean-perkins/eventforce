@@ -4,12 +4,24 @@ $border-width: 5px;
 
 ef-event-list-item {
     &:nth-child(3n+1) {
-        border-left:$border-width solid $purple500;
+        /deep/ {
+            .event-row {
+                border-left:$border-width solid $purple500;
+            }
+        }
     }
     &:nth-child(3n) {
-        border-left:$border-width solid $yellow500;
+        /deep/ {
+            .event-row {
+                border-left:$border-width solid $yellow500;
+            }
+        }
     }
     &:nth-child(3n-1) {
-        border-left:$border-width solid $orange500;
+        /deep/ {
+            .event-row {
+                border-left:$border-width solid $orange500;
+            }
+        }
     }
 }

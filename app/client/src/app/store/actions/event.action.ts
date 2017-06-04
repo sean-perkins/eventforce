@@ -21,9 +21,31 @@ export class FetchEventsFailedAction implements Action {
     payload = null;
 }
 
+export class FetchEventSessionsAction implements Action {
+    type = EventState.ActionTypes.FETCH_SESSIONS;
+    /**
+     *
+     * @param payload The id of the Event to load sessions for
+     */
+    constructor(public payload: string) {}
+}
+
+export class FetchEventSessionsCompleteAction implements Action {
+    type = EventState.ActionTypes.FETCH_SESSIONS_COMPLETE;
+    constructor(public payload: any[]) {}
+}
+
+export class FetchEventSessionsFailedAction implements Action {
+    type = EventState.ActionTypes.FETCH_SESSIONS_FAILED;
+    payload = null;
+}
+
 
 export type Actions
     = InitAction
     | FetchEventsAction
     | FetchEventsCompleteAction
-    | FetchEventsFailedAction;
+    | FetchEventsFailedAction
+    | FetchEventSessionsAction
+    | FetchEventSessionsCompleteAction
+    | FetchEventSessionsFailedAction;

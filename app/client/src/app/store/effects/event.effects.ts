@@ -18,6 +18,12 @@ export class EventEffects {
         .map(payload => new actions.FetchEventsCompleteAction(payload))
         .catch(() => Observable.of(new actions.FetchEventsFailedAction));
 
+    @Effect() getEventSessions$: Observable<Action> = this.actions$
+        .ofType(EventState.ActionTypes.FETCH_SESSIONS)
+        .switchMap(({payload}) => this.eventService.getEventSessions(payload))
+        .map(payload => new actions.FetchEventSessionsCompleteAction(payload))
+        .catch(() => Observable.of(new actions.FetchEventSessionsFailedAction));
+
     constructor(
         private actions$: Actions,
         private eventService: EventService) {}

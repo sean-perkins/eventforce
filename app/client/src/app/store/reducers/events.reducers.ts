@@ -15,6 +15,10 @@ export function eventsReducer(
                     events: action.payload,
                     loading: false
                 });
+            case EventState.ActionTypes.FETCH_SESSIONS_COMPLETE:
+                return (<any>Object).assign({}, state, {
+                    sessions: action.payload
+                });
             default:
                 return state;
         }

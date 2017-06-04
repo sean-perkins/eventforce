@@ -61,3 +61,18 @@ export let getEvent = (req: Request, res: Response, next: NextFunction) => {
             });
     });
 };
+
+
+export let getEventSessions = (req: Request, res: Response, next: NextFunction) => {
+    connection.login(SalesForceUser.Username, SalesForceUser.Password, (err: any, authRes: any) => {
+        if (err) {
+            return console.error(err);
+        }
+        connection.sobject(Session.Model)
+            .select('*')
+            .where(`Event__c = '${req.params.id}'`)
+            .execute((err: any, sessions: any[]) => {
+                res.json(sessions.map(session => new Session(session)));
+            });
+    });
+};

@@ -13,6 +13,9 @@ export class Event {
 
     end: string;
 
+
+    sessions: any[];
+
     constructor(options: Event = <Event>{}) {
         this.id = options.id || null;
         this.name = options.name || null;
@@ -20,5 +23,6 @@ export class Event {
         this.registrationLimit = options.registrationLimit || null;
         this.start = options.start || null;
         this.end = options.end || null;
+        this.sessions = Array.isArray(options.sessions) ? options.sessions : [];
     }
 }
