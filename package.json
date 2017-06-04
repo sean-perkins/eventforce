@@ -1,0 +1,32 @@
+{
+    "name": "eventforce",
+    "version": "1.0.0",
+    "description": "Eventforce",
+    "main": "index.js",
+    "directories": {
+        "test": "test"
+    },
+    "scripts": {
+        "setup": "cd app/server && npm i && cd ../client && npm i",
+        "start.server": "cd app/server && npm run start",
+        "start.client": "cd app/client && npm run start",
+        "build.client": "cd app/client && ng build -prod -aot"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/sean-perkins/eventforce.git"
+    },
+    "keywords": [
+        "salesforce",
+        "nodejs",
+        "angular",
+        "angular-cli",
+        "event-manager"
+    ],
+    "author": "Sean Perkins <sean@devonite.com>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/sean-perkins/eventforce/issues"
+    },
+    "homepage": "https://github.com/sean-perkins/eventforce#readme"
+}
