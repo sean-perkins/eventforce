@@ -1,4 +1,6 @@
 export class Attendee {
+
+    static Model = 'Attendee__c';
     /**
      * The first name of the attendee
      */
