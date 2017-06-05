@@ -1,6 +1,8 @@
+import { StoreModule } from '@ngrx/store';
 import { RouterTestingModule } from '@angular/router/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, Input } from '@angular/core';
+import { AppReducer } from '../../../store/app.state';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EventRegistrationComponent } from './event-registration.component';
 
@@ -19,6 +21,14 @@ class MockInputComponent {
 })
 class MockInputContainerComponent {}
 
+@Component({
+    selector: 'ef-session-list-item',
+    template: ``
+})
+class MockSessionListItemComponent {
+    @Input() session: any;
+}
+
 describe('EventRegistrationComponent', () => {
     let component: EventRegistrationComponent;
     let fixture: ComponentFixture<EventRegistrationComponent>;
@@ -28,12 +38,14 @@ describe('EventRegistrationComponent', () => {
             declarations: [
                 EventRegistrationComponent,
                 MockInputComponent,
-                MockInputContainerComponent
+                MockInputContainerComponent,
+                MockSessionListItemComponent
             ],
             imports: [
                 FormsModule,
                 ReactiveFormsModule,
-                RouterTestingModule
+                RouterTestingModule,
+                StoreModule.provideStore(AppReducer),
             ]
         })
             .compileComponents();
