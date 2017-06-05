@@ -1,5 +1,8 @@
 <!-- TODO list sessions that users can select -->
 <form novalidate [formGroup]="form" (ngSubmit)="register($event, form.value, form.valid)">
+    <h5>Available Sessions</h5>
+    <ef-session-list-item *ngFor="let session of sessions$ | async"
+        [session]="session"></ef-session-list-item>
     <h5>Your Information</h5>
     <div fxLayout="row" fxLayoutAlign="space-between">
         <div fxFlex="45%">

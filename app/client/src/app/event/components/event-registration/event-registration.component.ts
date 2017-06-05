@@ -1,6 +1,13 @@
+import { IAppState, getEventSessions } from './../../../store/app.state';
+import { Store } from '@ngrx/store';
+import { Session } from './../../../common/models/Session';
+import { Observable } from 'rxjs/Observable';
+import { ActivatedRoute } from '@angular/router';
 import { CustomValidators } from './../../../forms/index';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
+import * as eventActions from './../../../store/actions/event.action';
 
 @Component({
     selector: 'ef-event-registration',
@@ -14,8 +21,17 @@ export class EventRegistrationComponent implements OnInit {
      * The submitted state of the form
      */
     submitted = false;
+    /**
+     * The salesforce event ID
+     */
+    eventId: string;
 
-    constructor(private fb: FormBuilder) { }
+    sessions$: Observable<Session[]>;
+
+    constructor(
+        private store$: Store<IAppState>,
+        private fb: FormBuilder,
+        private route: ActivatedRoute) { }
 
     ngOnInit() {
         this.form = this.fb.group({
@@ -26,6 +42,11 @@ export class EventRegistrationComponent implements OnInit {
             phone: ['', CustomValidators.validPhone],
             email: ['', [Validators.required, CustomValidators.validEmail]]
         });
+
+        this.eventId = this.route.snapshot.params['id'];
+
+        this.sessions$ = this.store$.let(getEventSessions);
+        this.store$.dispatch(new eventActions.FetchEventSessionsAction(this.eventId));
     }
 
     register(event: any, model: any, isValid: boolean) {
