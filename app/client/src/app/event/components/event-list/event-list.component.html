@@ -1,4 +1,5 @@
 
 <ef-event-list-item
     *ngFor="let event of events$ | async"
-    [event]="event"></ef-event-list-item>
+    [event]="event"
+    [routerLink]="['/event/', event.id]"></ef-event-list-item>

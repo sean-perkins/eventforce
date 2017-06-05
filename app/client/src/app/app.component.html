@@ -1,4 +1,8 @@
-<md-toolbar>Eventforce</md-toolbar>
+<md-toolbar>
+    <a class="left-margin-4 logo"
+        [routerLink]="['/events']">
+        <img src="assets/images/logo.png" width="75px" /></a>
+</md-toolbar>
 <md-sidenav-container>
     <div class="margin-4">
         <router-outlet></router-outlet>

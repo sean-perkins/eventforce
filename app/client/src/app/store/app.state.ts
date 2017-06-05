@@ -28,6 +28,7 @@ export function AppReducer(state: any, action: any) {
 
 export {
     getEvents,
+    getEventDetail,
     getEventsLoading,
     getEventsSearching,
     getEventSessions

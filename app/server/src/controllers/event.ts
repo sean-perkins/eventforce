@@ -19,8 +19,18 @@ export let getEvents = (req: Request, res: Response, next: NextFunction) => {
         if (err) {
             return console.error(err);
         }
+        const fieldList = [
+            'Id',
+            'Name',
+            'Start__c',
+            'End__c',
+            'Registration_Limit__c',
+            'Remaining_Seats__c',
+            'Description__c',
+            'Status__c'
+        ];
         connection.sobject(Event.Model)
-            .select('Id, Name, Start__c, End__c, Registration_Limit__c, Status__c')
+            .select(fieldList.join(', '))
             .where(`Status__c != 'Draft'`)
             .orderby('Start__c', 'ASC')
             .execute((err: any, result: any[]) => {
@@ -46,13 +56,18 @@ export let getEvent = (req: Request, res: Response, next: NextFunction) => {
         }
         connection.sobject(Event.Model)
             .retrieve(req.params.id, (err: any, event: any) => {
-                if (err) {
-                    return console.error(err);
+                 if (err) {
+                    if (err.errorCode === 'NOT_FOUND') {
+                        return res.status(404).send('Not Found');
+                    }
                 }
                 connection.sobject(Session.Model)
                     .select('*')
                     .where(`Event__c = '${req.params.id}'`)
                     .execute((err: any, sessions: any[]) => {
+                        if (err) {
+                            return console.error(err);
+                        }
                         event = new Event((<any>Object).assign(event, {
                             Sessions__c: sessions
                         }));

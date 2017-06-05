@@ -1,3 +1,4 @@
+import { EventService } from './../services/event.service';
 import { IAppState } from './../app.state';
 import { compose } from '@ngrx/core/compose';
 import { Event, Session } from './../../common/index';
@@ -21,6 +22,10 @@ export class EventState {
      * Represents a specific events displayed sessions
      */
     sessions: Session[];
+    /**
+     * Represents a loaded event detail
+     */
+    eventDetail: Event;
 
     static state$(state$: Observable<IAppState>): Observable<EventState> {
         return state$.select(state => state.events);
@@ -28,6 +33,10 @@ export class EventState {
 
     static getEvents(state$: Observable<any>) {
         return state$.select(state => state.events);
+    }
+
+    static getEvent(state$: Observable<any>) {
+        return state$.select(state => state.eventDetail);
     }
 
     static getEventSessions(state$: Observable<any>) {
@@ -44,6 +53,9 @@ export class EventState {
 
     static ActionTypes = {
         INIT: 'EVENTS_INIT',
+        FIND: 'EVENTS_FIND',
+        FIND_COMPLETE: 'EVENTS_FIND_COMPLETE',
+        FIND_FAILED: 'EVENTS_FIND_FAILED',
         FETCH: 'EVENTS_FETCH',
         FETCH_COMPLETE: 'EVENTS_FETCH_COMPLETE',
         FETCH_FAILED: 'EVENTS_FETCH_FAILED',
@@ -56,12 +68,14 @@ export class EventState {
         this.events = Array.isArray(options.events) ? options.events : [];
         this.loading = options.loading || false;
         this.searching = options.searching || null;
+        this.eventDetail = options.eventDetail || null;
         this.sessions = Array.isArray(options.sessions) ? options.sessions: [];
     }
 
 }
 
 export const getEvents: any = compose(EventState.getEvents, EventState.state$);
+export const getEventDetail: any = compose(EventState.getEvent, EventState.state$);
 export const getEventsLoading: any = compose(EventState.isLoading, EventState.state$);
 export const getEventsSearching: any = compose(EventState.isSearching, EventState.state$);
 export const getEventSessions: any = compose(EventState.getEventSessions, EventState.state$);

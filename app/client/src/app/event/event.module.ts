@@ -1,4 +1,5 @@
-import { ForceDateModule } from './../date/date.module';
+import { SessionModule } from './../session/session.module';
+import { MaterialModule } from '@angular/material';
 import { EventRoutingModule } from './event-routing.module';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -11,9 +12,10 @@ import { EventStatusComponent } from './components/event-status/event-status.com
 @NgModule({
     imports: [
         CommonModule,
+        MaterialModule,
         FlexLayoutModule,
         EventRoutingModule,
-        ForceDateModule
+        SessionModule
     ],
     declarations: [
         EventListComponent,

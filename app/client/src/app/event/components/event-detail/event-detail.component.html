@@ -1,3 +1,26 @@
-<p>
-  event-detail works!
-</p>
+<div *ngFor="let event of [event$ | async]">
+    <div *ngIf="event !== null">
+        <div class="section-header">
+            <div fxLayout="row">
+                <div fxFlex="80%">
+                    <h1 class="top-margin-0"
+                        [innerText]="event.name"></h1>
+                </div>
+                <div fxFlex="20%" class="text-right">
+                    <button *ngIf="event.status === 'Open'"
+                        md-raised-button color="primary">Register</button>
+                    <span class="status" *ngIf="event.status !== 'Open'"
+                        [innerText]="event.status"></span>
+                </div>
+            </div>
+            <p [innerHTML]="event.description"></p>
+            <p>
+                <span [innerText]="event.start | date:'MMMM dd, y hh:mm a'"></span>
+                <span>to</span>
+                <span [innerText]="event.end | date:'MMMM dd, y hh:mm a'"></span>
+            </p>
+        </div>
+        <ef-session-list-item *ngFor="let session of event.sessions"
+            [session]="session"></ef-session-list-item>
+    </div>
+</div>

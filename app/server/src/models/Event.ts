@@ -9,9 +9,13 @@ export class Event {
      */
     id: string;
     /**
-     * The name of the Event
+     * The name of the event
      */
     name: string;
+    /**
+     * The description of the event
+     */
+    description: string;
     /**
      * The end date-time of the event
      */
@@ -24,6 +28,10 @@ export class Event {
      * The maximum number of attendees that can register to the event
      */
     registrationLimit: number;
+    /**
+     * The number of remaining seats for registration
+     */
+    remainingSeats: number;
     /**
      * The event status
      */
@@ -40,7 +48,9 @@ export class Event {
     constructor (options: any  = <Event>{}) {
         this.id = options.Id;
         this.name = options.Name;
+        this.description = options.Description__c;
         this.registrationLimit = options.Registration_Limit__c;
+        this.remainingSeats = options.Remaining_Seats__c;
         this.start = options.Start__c;
         this.end = options.End__c;
         this.status = options.Status__c;

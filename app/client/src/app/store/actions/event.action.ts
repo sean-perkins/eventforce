@@ -1,3 +1,4 @@
+import { Event } from './../../common/models/Event';
 import { Action } from '@ngrx/store';
 import { EventState } from './../states/event.state';
 
@@ -40,6 +41,24 @@ export class FetchEventSessionsFailedAction implements Action {
     payload = null;
 }
 
+export class FindEventAction implements Action {
+    type = EventState.ActionTypes.FIND;
+    /**
+     *
+     * @param payload The id of the Event
+     */
+    constructor(public payload: string) {}
+}
+
+export class FindEventCompleteAction implements Action {
+    type = EventState.ActionTypes.FIND_COMPLETE;
+    constructor(public payload: Event) {}
+}
+
+export class FindEventFailedAction implements Action {
+    type = EventState.ActionTypes.FIND_FAILED;
+    payload = null;
+}
 
 export type Actions
     = InitAction
@@ -48,4 +67,7 @@ export type Actions
     | FetchEventsFailedAction
     | FetchEventSessionsAction
     | FetchEventSessionsCompleteAction
-    | FetchEventSessionsFailedAction;
+    | FetchEventSessionsFailedAction
+    | FindEventAction
+    | FindEventCompleteAction
+    | FindEventFailedAction;

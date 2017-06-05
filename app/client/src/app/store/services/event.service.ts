@@ -17,10 +17,24 @@ export class EventService {
             .map(res => res.map(event => new Event(event)));
     }
 
+    /**
+     * Finds the sessions under an event
+     * @param id The event id
+     */
     getEventSessions(id: string): Observable<any> {
         return this.http.get(`/api/v1/event/${id}/sessions`)
             .map(res => res.json())
             .map(res => res.map(session => new Session(session)));
+    }
+
+    /**
+     * Finds an event object by id
+     * @param id The event id
+     */
+    getEvent(id: string): Observable<any> {
+        return this.http.get(`/api/v1/event/${id}`)
+            .map(res => res.json())
+            .map(res => new Event(res));
     }
 
 }

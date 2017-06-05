@@ -10,6 +10,10 @@ export function eventsReducer(
                     events: [],
                     loading: true
                 });
+            case EventState.ActionTypes.FIND_COMPLETE:
+                return (<any>Object).assign({}, state, {
+                    eventDetail: action.payload
+                });
             case EventState.ActionTypes.FETCH_COMPLETE:
                 return (<any>Object).assign({}, state, {
                     events: action.payload,
