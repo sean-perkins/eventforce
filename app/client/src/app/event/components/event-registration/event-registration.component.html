@@ -1,0 +1,49 @@
+<!-- TODO list sessions that users can select -->
+<form novalidate [formGroup]="form" (ngSubmit)="register($event, form.value, form.valid)">
+    <h5>Your Information</h5>
+    <div fxLayout="row" fxLayoutAlign="space-between">
+        <div fxFlex="45%">
+            <ef-input [control]="form.controls.firstName" [submitted]="submitted">
+                <md-input-container class="full-width">
+                    <input mdInput type="text" formControlName="firstName" placeholder="First Name" />
+                </md-input-container>
+            </ef-input>
+        </div>
+        <div fxFlex="45%">
+            <ef-input [control]="form.controls.lastName" [submitted]="submitted">
+                <md-input-container class="full-width">
+                    <input mdInput type="text" formControlName="lastName" placeholder="Last Name" />
+                </md-input-container>
+            </ef-input>
+        </div>
+    </div>
+    <div fxLayout="row">
+        <div fxFlex="100%">
+            <ef-input [control]="form.controls.email" [submitted]="submitted">
+                <md-input-container class="full-width">
+                    <input mdInput type="text" formControlName="email" placeholder="Email Address" />
+                </md-input-container>
+            </ef-input>
+        </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-between">
+         <div fxFlex="45%">
+            <ef-input [control]="form.controls.company" [submitted]="submitted">
+                <md-input-container class="full-width">
+                    <input mdInput type="text" formControlName="company" placeholder="Company" />
+                </md-input-container>
+            </ef-input>
+        </div>
+        <div fxFlex="45%">
+            <ef-input [control]="form.controls.phone" [submitted]="submitted">
+                <md-input-container class="full-width">
+                    <input mdInput type="text" formControlName="phone" placeholder="Phone" />
+                </md-input-container>
+            </ef-input>
+        </div>
+    </div>
+    <div class="text-right">
+        <button md-button type="button" [routerLink]="['/events']">Cancel</button>
+        <button md-raised-button color="primary" type="submit">Register</button>
+    </div>
+</form>

@@ -8,7 +8,8 @@
                 </div>
                 <div fxFlex="20%" class="text-right">
                     <button *ngIf="event.status === 'Open'"
-                        md-raised-button color="primary">Register</button>
+                        md-raised-button color="primary"
+                        [routerLink]="['/event', event.id, 'register']">Register</button>
                     <span class="status" *ngIf="event.status !== 'Open'"
                         [innerText]="event.status"></span>
                 </div>

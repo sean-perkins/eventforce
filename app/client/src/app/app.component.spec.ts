@@ -9,12 +9,19 @@ import { AppComponent } from './app.component';
 })
 class MockMdToolbarComponent { }
 
+@Component({
+    selector: 'md-sidenav-container',
+    template: `<ng-content></ng-content>`
+})
+class MockSideNavContainerComponent {}
+
 describe('AppComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [
                 AppComponent,
-                MockMdToolbarComponent
+                MockMdToolbarComponent,
+                MockSideNavContainerComponent
             ],
             imports: [
                 RouterTestingModule
