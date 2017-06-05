@@ -1,4 +1,4 @@
-# EventForce
+![EventForce](http://i.imgur.com/yPT45Wp.png)
 
 A Salesforce integration built on-top of NodeJS and Angular (4+). The integration allows Salesforce administrators to create events, sessions and attendees through their Salesforce instance. Users (non-salesforce) can view available events and event details through the Angular app. They may register to an event, which will tie back into the Salesforce environment.
 
@@ -24,10 +24,12 @@ The representation of events that users can register to.
 |Field Label|API Name|Data Type|Description|
 |--|--|--|--|
 |Event Name|`Name`|Text(80)|The Event's displayed name.|
+|Description|`Description__c`|Rich Text Area(32768)|The description of the event.|
 |Start|`Start__c`|Date/Time|The Event's start time.|
 |End|`End__c`|Date/Time|The Event's end time.|
 |Status|`Status__c`|Picklist|The Event's availability status.|
 |Registration Limit|`Registration_Limit__c`|Number(18, 0)|The maximum number of allowed attendees.|
+|Remaining Seats|`Remaining_Seats__c`|Number(18, 0)|The number of available open seats for registration.|
 
 ---
 

@@ -5,6 +5,7 @@ $min-height: 120px;
 :host {
     display:block;
     position:relative;
+    cursor: pointer;
 }
 
 .event-row {
@@ -12,6 +13,10 @@ $min-height: 120px;
     background: $grey900;
     border-bottom:1px solid $grey800;
     min-height:$min-height;
+    transition: all 0.2s ease;
+    &:hover {
+        background: $grey800;
+    }
     .date-container {
         position:relative;
         .day {

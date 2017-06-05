@@ -1,3 +1,4 @@
+import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, Input } from '@angular/core';
@@ -23,7 +24,8 @@ describe('EventListComponent', () => {
                 MockEventListItemComponent
             ],
             imports: [
-                StoreModule.provideStore(AppReducer)
+                StoreModule.provideStore(AppReducer),
+                RouterTestingModule
             ]
         })
             .compileComponents();

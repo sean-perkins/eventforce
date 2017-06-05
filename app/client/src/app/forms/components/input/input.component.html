@@ -1,0 +1,8 @@
+<div class="form-group" [class.error]="control && !control.valid && submitted">
+    <p class="form-label">
+        <span [innerText]="title"></span>
+    </p>
+    <div class="form-input-group">
+        <ng-content></ng-content>
+    </div>
+</div>

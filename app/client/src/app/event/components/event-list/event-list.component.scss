@@ -1,15 +1,50 @@
 @import '~assets/scss/colors';
 
-$border-width: 5px;
+$border-width:5;
 
 ef-event-list-item {
     &:nth-child(3n+1) {
-        border-left:$border-width solid $purple500;
+        /deep/ {
+            .event-row {
+                border-left:$border-width*1px solid $purple500;
+            }
+        }
     }
     &:nth-child(3n) {
-        border-left:$border-width solid $yellow500;
+        /deep/ {
+            .event-row {
+                border-left:$border-width*1px solid $yellow500;
+            }
+        }
     }
     &:nth-child(3n-1) {
-        border-left:$border-width solid $orange500;
+        /deep/ {
+            .event-row {
+                border-left:$border-width*1px solid $orange500;
+            }
+        }
+    }
+    &:hover {
+        &:nth-child(3n+1) {
+            /deep/ {
+                .event-row {
+                    border-left:$border-width*2px solid $purple500;
+                }
+            }
+        }
+        &:nth-child(3n) {
+            /deep/ {
+                .event-row {
+                    border-left:$border-width*2px solid $yellow500;
+                }
+            }
+        }
+        &:nth-child(3n-1) {
+            /deep/ {
+                .event-row {
+                    border-left:$border-width*2px solid $orange500;
+                }
+            }
+        }
     }
 }

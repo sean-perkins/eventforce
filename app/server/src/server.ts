@@ -61,6 +61,7 @@ app.get('/', homeController.index);
  */
 app.get('/api/v1/events', eventController.getEvents);
 app.get('/api/v1/event/:id', eventController.getEvent);
+app.get('/api/v1/event/:id/sessions', eventController.getEventSessions);
 
 /**
  * Salesforce API

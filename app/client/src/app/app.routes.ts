@@ -4,5 +4,9 @@ import { Routes } from '@angular/router';
  * (do not place feature module routes here, use an own -routing.module.ts in the feature instead)
  */
 export const AppRoutes: Routes = [
-    { path: '', pathMatch: 'full', redirectTo: '/events' }
+    { path: '', pathMatch: 'full', redirectTo: '/events' },
+    {
+        path: 'error',
+        loadChildren: 'app/error/error.module#ErrorModule'
+    }
 ];
