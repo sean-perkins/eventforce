@@ -16,6 +16,9 @@ A Salesforce integration built on-top of NodeJS and Angular (4+). The integratio
 3. Build the front-end with `npm run build.client`.
 4. _Optional:_ If developing you can use the proxy with `npm run start.client` and opening up `http://localhost:4200`.
 
+## Example Images
+![Event Listings](http://i.imgur.com/iL19aUl.png)
+
 ### SalesForce Schema
 **Event**
 
