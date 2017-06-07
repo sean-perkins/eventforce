@@ -37,4 +37,14 @@ export class EventService {
             .map(res => new Event(res));
     }
 
+    /**
+     * Registers an user (attendee) to an event and session(s).
+     * @param id The event id to register to
+     * @param payload The registration payload
+     */
+    register(id: string, payload: any): Observable<any> {
+        return this.http.post(`/api/v1/event/${id}/register`, payload)
+            .map(res => res.json());
+    }
+
 }

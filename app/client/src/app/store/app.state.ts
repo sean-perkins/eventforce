@@ -31,5 +31,6 @@ export {
     getEventDetail,
     getEventsLoading,
     getEventsSearching,
-    getEventSessions
+    getEventSessions,
+    getEventRegistering
 } from './states/event.state';

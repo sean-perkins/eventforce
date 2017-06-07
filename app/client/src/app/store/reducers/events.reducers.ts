@@ -23,6 +23,11 @@ export function eventsReducer(
                 return (<any>Object).assign({}, state, {
                     sessions: action.payload
                 });
+            case EventState.ActionTypes.REGISTER_COMPLETE:
+            case EventState.ActionTypes.REGISTER:
+                return (<any>Object).assign({}, state, {
+                    registering: action.type === EventState.ActionTypes.REGISTER
+                });
             default:
                 return state;
         }

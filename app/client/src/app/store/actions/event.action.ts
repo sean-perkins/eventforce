@@ -60,6 +60,21 @@ export class FindEventFailedAction implements Action {
     payload = null;
 }
 
+export class RegisterAction implements Action {
+    type = EventState.ActionTypes.REGISTER;
+    constructor(public payload: any) {}
+}
+
+export class RegisterCompleteAction implements Action {
+    type = EventState.ActionTypes.REGISTER_COMPLETE;
+    payload = null;
+}
+
+export class RegisterFailedAction implements Action {
+    type = EventState.ActionTypes.REGISTER_FAILED;
+    payload = null;
+}
+
 export type Actions
     = InitAction
     | FetchEventsAction
@@ -70,4 +85,7 @@ export type Actions
     | FetchEventSessionsFailedAction
     | FindEventAction
     | FindEventCompleteAction
-    | FindEventFailedAction;
+    | FindEventFailedAction
+    | RegisterAction
+    | RegisterCompleteAction
+    | RegisterFailedAction;

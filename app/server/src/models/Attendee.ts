@@ -37,14 +37,13 @@ export class Attendee {
         return `${this.firstName} ${this.lastName}`.trim();
     }
 
-    payload(eventId: string, sessions: any[]): any {
+    payload(eventId: string): any {
         return {
             First_Name__c: this.firstName,
             Last_Name__c: this.lastName,
             Email__c: this.email,
             Phone__c: this.phone,
-            Event__c: eventId,
-            Session__c: sessions.join(', ')
+            Event__c: eventId
         };
     }
 

@@ -49,6 +49,9 @@
     </div>
     <div class="text-right">
         <button md-button type="button" [routerLink]="['/events']">Cancel</button>
-        <button md-raised-button color="primary" type="submit">Register</button>
+        <button md-raised-button
+            [disabled]="saving$ | async"
+            color="primary"
+            type="submit">Register</button>
     </div>
 </form>

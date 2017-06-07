@@ -4,7 +4,7 @@ import * as async from 'async';
 import * as request from 'request';
 import * as jsforce from 'jsforce';
 import { Response, Request, NextFunction } from 'express';
-import { SalesForceUser, Event, Session, Attendee } from './../models/index';
+import { SalesForceUser, Event, Session, Attendee, SessionAttendee } from './../models/index';
 
 const connection: any = new jsforce.Connection({
     instanceUrl: SalesForceUser.InstanceUrl
@@ -97,13 +97,27 @@ export let postEventRegistration = (req: Request, res: Response, next: NextFunct
             return console.error(err);
         }
         const attendee = new Attendee(req.body);
-        const payload = attendee.payload(req.params.id, req.body.sessions);
+        const payload = attendee.payload(req.params.id);
         connection.sobject(Attendee.Model)
             .create(payload, (err: any, ret: any) => {
                 if (err) {
                     return console.error(err);
                 }
-                res.json(ret);
+                const sessionAttendees: any = [];
+
+                for (const sessionId of req.body.sessions) {
+                    sessionAttendees.push({
+                        Attendee__c: ret.id,
+                        Session__c: sessionId
+                    })
+                }
+
+                connection.sobject(SessionAttendee.Model).insertBulk(sessionAttendees, (err: any, rets: any) => {
+                    if (err) {
+                        return console.error(err);
+                    }
+                    res.json(rets);
+                });
             });
     });
 };

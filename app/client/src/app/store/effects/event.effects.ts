@@ -37,6 +37,12 @@ export class EventEffects {
         .map(payload => new actions.FetchEventSessionsCompleteAction(payload))
         .catch(() => Observable.of(new actions.FetchEventSessionsFailedAction));
 
+    @Effect() postRegistration$: Observable<Action> = this.actions$
+        .ofType(EventState.ActionTypes.REGISTER)
+        .switchMap(({payload}) => this.eventService.register(payload.id, payload))
+        .map(payload => new actions.RegisterCompleteAction)
+        .catch(() => Observable.of(new actions.RegisterFailedAction));
+
     constructor(
         private actions$: Actions,
         private eventService: EventService,
