@@ -7,7 +7,7 @@ A Salesforce integration built on-top of NodeJS and Angular (4+). The integratio
 - NodeJS
 - Protractor/Jasmine (Testing)
 - TypeScript
-- ReactiveJS (@ngrx in Angular)
+- RxJS (@ngrx in Angular)
 - JSForce (connect NodeJS to SalesForce API)
 
 ## Getting Started

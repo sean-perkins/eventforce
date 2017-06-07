@@ -57,11 +57,12 @@ app.use(express.static(path.join(__dirname, '../views'), { maxAge: 31557600000 }
  */
 app.get('/', homeController.index);
 /**
- * API examples routes.
+ * API Event routes
  */
 app.get('/api/v1/events', eventController.getEvents);
 app.get('/api/v1/event/:id', eventController.getEvent);
 app.get('/api/v1/event/:id/sessions', eventController.getEventSessions);
+app.post('/api/v1/event/:id/register', eventController.postEventRegistration);
 
 /**
  * Salesforce API

@@ -37,4 +37,15 @@ export class Attendee {
         return `${this.firstName} ${this.lastName}`.trim();
     }
 
+    payload(eventId: string, sessions: any[]): any {
+        return {
+            First_Name__c: this.firstName,
+            Last_Name__c: this.lastName,
+            Email__c: this.email,
+            Phone__c: this.phone,
+            Event__c: eventId,
+            Session__c: sessions.join(', ')
+        };
+    }
+
 }

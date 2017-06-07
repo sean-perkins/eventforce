@@ -52,9 +52,8 @@ export class EventRegistrationComponent implements OnInit {
     register(event: any, model: any, isValid: boolean) {
         event.preventDefault();
         this.submitted = true;
-        console.log('model', model);
         if (isValid) {
-
+            console.log(JSON.stringify(model));
         }
     }
 

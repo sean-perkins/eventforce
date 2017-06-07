@@ -1,3 +1,4 @@
+import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -6,7 +7,8 @@ import { SessionListItemComponent } from './components/session-list-item/session
 @NgModule({
     imports: [
         CommonModule,
-        FlexLayoutModule
+        FlexLayoutModule,
+        MaterialModule
     ],
     declarations: [
         SessionListItemComponent
