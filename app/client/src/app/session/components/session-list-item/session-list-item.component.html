@@ -1,4 +1,7 @@
 <div fxLayout="row" fxLayoutAlign="space-between center" *ngIf="session">
+    <div fxFlex="10%" *ngIf="control">
+        <md-checkbox (click)="toggleSession()"></md-checkbox>
+    </div>
     <div fxFlex="20%">
         <span class="weekday"
             [innerText]="session.start | date:'EEE'"></span>

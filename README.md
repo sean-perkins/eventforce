@@ -7,7 +7,7 @@ A Salesforce integration built on-top of NodeJS and Angular (4+). The integratio
 - NodeJS
 - Protractor/Jasmine (Testing)
 - TypeScript
-- ReactiveJS (@ngrx in Angular)
+- RxJS (@ngrx in Angular)
 - JSForce (connect NodeJS to SalesForce API)
 
 ## Getting Started
@@ -63,7 +63,17 @@ The representation of a user attending a session and/or event.
 |Phone|`Phone__c`|Phone|_Optional:_ The attendees contact number.|
 |Email|`Email__c`|Email|The attendees email address.|
 |Event|`Event__c`|Master-Detail(Event)|The relationship join to the attending events.|
-|Session|`Session_c`|Master-Detail(Session)|The relationship join to the attending sessions.|
+
+---
+
+**SessionAttendee**
+
+The representation of the association between attendees and sessions (one-to-many).
+
+|Field Label|API Name|Data Type|Description|
+|--|--|--|--|
+|Attendee|`Attendee__c`|Master-Detail(Attendee)|The relationship join to the attendee.|
+|Session|`Session__c`|Master-Detail(Session)|The relationship join to the session.|
 
 ### Testing
 

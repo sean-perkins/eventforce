@@ -26,6 +26,10 @@ export class EventState {
      * Represents a loaded event detail
      */
     eventDetail: Event;
+    /**
+     * Represents if a registration is currently being saved
+     */
+    registering: boolean;
 
     static state$(state$: Observable<IAppState>): Observable<EventState> {
         return state$.select(state => state.events);
@@ -51,6 +55,10 @@ export class EventState {
         return state$.select(state => state.searching);
     }
 
+    static isRegistering(state$: Observable<any>) {
+        return state$.select(state => state.registering);
+    }
+
     static ActionTypes = {
         INIT: 'EVENTS_INIT',
         FIND: 'EVENTS_FIND',
@@ -61,12 +69,16 @@ export class EventState {
         FETCH_FAILED: 'EVENTS_FETCH_FAILED',
         FETCH_SESSIONS: `EVENTS_FETCH_SESSIONS`,
         FETCH_SESSIONS_COMPLETE: `EVENTS_FETCH_SESSIONS_COMPLETE`,
-        FETCH_SESSIONS_FAILED: `EVENTS_FETCH_SESSIONS_FAILED`
+        FETCH_SESSIONS_FAILED: `EVENTS_FETCH_SESSIONS_FAILED`,
+        REGISTER: 'EVENTS_REGISTER',
+        REGISTER_COMPLETE: 'EVENTS_REGISTER_COMPLETE',
+        REGISTER_FAILED: 'EVENTS_REGISTER_FAILED'
     }
 
     constructor(options: EventState = <EventState>{}) {
         this.events = Array.isArray(options.events) ? options.events : [];
         this.loading = options.loading || false;
+        this.registering = options.registering || false;
         this.searching = options.searching || null;
         this.eventDetail = options.eventDetail || null;
         this.sessions = Array.isArray(options.sessions) ? options.sessions: [];
@@ -79,3 +91,4 @@ export const getEventDetail: any = compose(EventState.getEvent, EventState.state
 export const getEventsLoading: any = compose(EventState.isLoading, EventState.state$);
 export const getEventsSearching: any = compose(EventState.isSearching, EventState.state$);
 export const getEventSessions: any = compose(EventState.getEventSessions, EventState.state$);
+export const getEventRegistering: any = compose(EventState.isRegistering, EventState.state$);

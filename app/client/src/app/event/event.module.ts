@@ -10,6 +10,7 @@ import { EventDetailComponent } from './components/event-detail/event-detail.com
 import { EventListItemComponent } from './components/event-list-item/event-list-item.component';
 import { EventStatusComponent } from './components/event-status/event-status.component';
 import { EventRegistrationComponent } from './components/event-registration/event-registration.component';
+import { EventRegistrationSuccessComponent } from './components/event-registration-success/event-registration-success.component';
 
 @NgModule({
     imports: [
@@ -25,7 +26,8 @@ import { EventRegistrationComponent } from './components/event-registration/even
         EventDetailComponent,
         EventListItemComponent,
         EventStatusComponent,
-        EventRegistrationComponent
+        EventRegistrationComponent,
+        EventRegistrationSuccessComponent
     ]
 })
 export class EventModule { }

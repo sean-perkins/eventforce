@@ -1,8 +1,10 @@
-import { IAppState, getEventSessions } from './../../../store/app.state';
+import { EventState } from './../../../store/states/event.state';
+import { Actions } from '@ngrx/effects';
+import { IAppState, getEventSessions, getEventRegistering } from './../../../store/app.state';
 import { Store } from '@ngrx/store';
 import { Session } from './../../../common/models/Session';
 import { Observable } from 'rxjs/Observable';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CustomValidators } from './../../../forms/index';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -28,13 +30,20 @@ export class EventRegistrationComponent implements OnInit {
 
     sessions$: Observable<Session[]>;
 
+    saving$: Observable<boolean>;
+
     constructor(
         private store$: Store<IAppState>,
         private fb: FormBuilder,
-        private route: ActivatedRoute) { }
+        private route: ActivatedRoute,
+        private router: Router,
+        private actions: Actions) { }
 
     ngOnInit() {
+        this.eventId = this.route.snapshot.params['id'];
+
         this.form = this.fb.group({
+            id: [this.eventId],
             sessions: [[], Validators.required],
             firstName: ['', [Validators.required, Validators.maxLength(180)]],
             lastName: ['', [Validators.required, Validators.maxLength(255)]],
@@ -43,18 +52,26 @@ export class EventRegistrationComponent implements OnInit {
             email: ['', [Validators.required, CustomValidators.validEmail]]
         });
 
-        this.eventId = this.route.snapshot.params['id'];
-
         this.sessions$ = this.store$.let(getEventSessions);
+        this.saving$ = this.store$.let(getEventRegistering);
         this.store$.dispatch(new eventActions.FetchEventSessionsAction(this.eventId));
     }
 
     register(event: any, model: any, isValid: boolean) {
         event.preventDefault();
         this.submitted = true;
-        console.log('model', model);
         if (isValid) {
+            this.store$.dispatch(new eventActions.RegisterAction(model));
 
+            this.actions.ofType(EventState.ActionTypes.REGISTER_COMPLETE)
+                .do(() => {
+                    this.router.navigate(['/registered']);
+                }).subscribe();
+
+            this.actions.ofType(EventState.ActionTypes.REGISTER_FAILED)
+                .do(() => {
+                    console.error('There was an issue! :(');
+                }).subscribe();
         }
     }
 

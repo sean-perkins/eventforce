@@ -1,8 +1,9 @@
-import { EventRegistrationComponent } from './components/event-registration/event-registration.component';
 import { Routes } from '@angular/router';
 // app
 import { EventListComponent } from './components/event-list/event-list.component';
 import { EventDetailComponent } from './components/event-detail/event-detail.component';
+import { EventRegistrationSuccessComponent } from './components/event-registration-success/event-registration-success.component';
+import { EventRegistrationComponent } from './components/event-registration/event-registration.component';
 
 export const EventRoutes: Routes = [
     {
@@ -17,5 +18,9 @@ export const EventRoutes: Routes = [
     {
         path: 'event/:id/register',
         component: EventRegistrationComponent
+    },
+    {
+        path: 'registered',
+        component: EventRegistrationSuccessComponent
     }
 ];

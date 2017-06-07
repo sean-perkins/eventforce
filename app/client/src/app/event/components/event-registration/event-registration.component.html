@@ -2,7 +2,9 @@
 <form novalidate [formGroup]="form" (ngSubmit)="register($event, form.value, form.valid)">
     <h5>Available Sessions</h5>
     <ef-session-list-item *ngFor="let session of sessions$ | async"
-        [session]="session"></ef-session-list-item>
+        [session]="session"
+        [control]="form.controls.sessions"
+        ></ef-session-list-item>
     <h5>Your Information</h5>
     <div fxLayout="row" fxLayoutAlign="space-between">
         <div fxFlex="45%">
@@ -47,6 +49,9 @@
     </div>
     <div class="text-right">
         <button md-button type="button" [routerLink]="['/events']">Cancel</button>
-        <button md-raised-button color="primary" type="submit">Register</button>
+        <button md-raised-button
+            [disabled]="saving$ | async"
+            color="primary"
+            type="submit">Register</button>
     </div>
 </form>

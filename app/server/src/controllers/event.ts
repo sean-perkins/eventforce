@@ -4,7 +4,7 @@ import * as async from 'async';
 import * as request from 'request';
 import * as jsforce from 'jsforce';
 import { Response, Request, NextFunction } from 'express';
-import { SalesForceUser, Event, Session } from './../models/index';
+import { SalesForceUser, Event, Session, Attendee, SessionAttendee } from './../models/index';
 
 const connection: any = new jsforce.Connection({
     instanceUrl: SalesForceUser.InstanceUrl
@@ -77,17 +77,61 @@ export let getEvent = (req: Request, res: Response, next: NextFunction) => {
     });
 };
 
-
 export let getEventSessions = (req: Request, res: Response, next: NextFunction) => {
     connection.login(SalesForceUser.Username, SalesForceUser.Password, (err: any, authRes: any) => {
         if (err) {
             return console.error(err);
         }
+        getSessionsForEvent(connection, req.params.id)
+            .then((sessions) => {
+                res.json(sessions);
+            }, (error) => {
+                console.error(error);
+            });
+    });
+};
+
+export let postEventRegistration = (req: Request, res: Response, next: NextFunction) => {
+    connection.login(SalesForceUser.Username, SalesForceUser.Password, (err: any, authRes: any) => {
+        if (err) {
+            return console.error(err);
+        }
+        const attendee = new Attendee(req.body);
+        const payload = attendee.payload(req.params.id);
+        connection.sobject(Attendee.Model)
+            .create(payload, (err: any, ret: any) => {
+                if (err) {
+                    return console.error(err);
+                }
+                const sessionAttendees: any = [];
+
+                for (const sessionId of req.body.sessions) {
+                    sessionAttendees.push({
+                        Attendee__c: ret.id,
+                        Session__c: sessionId
+                    })
+                }
+
+                connection.sobject(SessionAttendee.Model).insertBulk(sessionAttendees, (err: any, rets: any) => {
+                    if (err) {
+                        return console.error(err);
+                    }
+                    res.json(rets);
+                });
+            });
+    });
+};
+
+let getSessionsForEvent = (connection: any, eventId: string) => {
+    return new Promise((resolve, reject) => {
         connection.sobject(Session.Model)
             .select('*')
-            .where(`Event__c = '${req.params.id}'`)
+            .where(`Event__c = '${eventId}'`)
             .execute((err: any, sessions: any[]) => {
-                res.json(sessions.map(session => new Session(session)));
+                if (err) {
+                    return reject(err);
+                }
+                resolve(sessions.map(session => new Session(session)));
             });
     });
 };
