@@ -63,6 +63,7 @@ app.get('/api/v1/events', eventController.getEvents);
 app.get('/api/v1/event/:id', eventController.getEvent);
 app.get('/api/v1/event/:id/sessions', eventController.getEventSessions);
 app.post('/api/v1/event/:id/register', eventController.postEventRegistration);
+app.post('/api/v1/event/registration', eventController.postRegistrationEmail);
 
 /**
  * Salesforce API
