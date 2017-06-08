@@ -6,6 +6,7 @@ import * as jsforce from 'jsforce';
 import * as https from 'https';
 import { Response, Request, NextFunction } from 'express';
 import { SalesForceUser, Event, Session, Attendee, SessionAttendee } from './../models/index';
+import { SalesForceEmail } from './../common/email/SalesForceEmail';
 
 const connection: any = new jsforce.Connection({
     instanceUrl: SalesForceUser.InstanceUrl
@@ -98,13 +99,15 @@ export let postEventRegistration = (req: Request, res: Response, next: NextFunct
             return console.error(err);
         }
         const attendee = new Attendee(req.body);
-        const payload = attendee.payload(req.params.id);
+        const event = req.body.event;
+        const payload = attendee.payload(event.id);
         connection.sobject(Attendee.Model)
             .create(payload, (err: any, ret: any) => {
                 if (err) {
                     return console.error(err);
                 }
                 const sessionAttendees: any = [];
+
 
                 for (const sessionId of req.body.sessions) {
                     sessionAttendees.push({
@@ -113,57 +116,48 @@ export let postEventRegistration = (req: Request, res: Response, next: NextFunct
                     });
                 }
 
+                let displayedSessions = ``;
+                for (const session of event.sessions) {
+                    displayedSessions += `- ${session.name} (${session.start} to ${session.end})`;
+                    displayedSessions += '\n                    ';
+                }
+
                 connection.sobject(SessionAttendee.Model).insertBulk(sessionAttendees, (err: any, rets: any) => {
                     if (err) {
                         return console.error(err);
                     }
-                    res.json(rets);
+                    SalesForceEmail.send(
+                        connection,
+                        attendee.email,
+                        'Eventforce: New Event Registration',
+                    `
+                    ${attendee.firstName} ${attendee.lastName}:
+
+                    Congratulations! You have successfully registered to the event: ${event.name}.
+
+                    The event starts at ${event.start} and ends at ${event.end}.
+
+                    The sessions you have registered to are:
+                    ${displayedSessions}
+
+                    Thanks!
+                    Eventforce Support
+                    noreply@eventforce.com
+                    `).then(() => {
+                        res.json({
+                            status: 200,
+                            message: 'success'
+                        });
+                        // TODO update event and sessions
+                    }, () => {
+                        res.json({
+                            status: 500,
+                            message: 'Error sending email registrations.'
+                        });
+                    });
                 });
             });
     });
-};
-
-export let postRegistrationEmail = (req: Request, res: Response, next: NextFunction) => {
-     connection.login(SalesForceUser.Username, SalesForceUser.Password, (err: any, authRes: any) => {
-        if (err) {
-            return console.error(err);
-        }
-        const body = {
-            'inputs' : [
-                {
-                'emailBody' : 'This is the body of the email',
-                'emailAddresses' : 'sean@devonite.com',
-                'emailSubject' : 'An email from salesforce',
-                'senderType' : 'CurrentUser'
-                }
-            ]
-        };
-
-        const options = {
-            hostname: 'na54.salesforce.com',
-            path: '/services/data/v39.0/actions/standard/emailSimple',
-            headers: {
-                'Authorization': `Bearer ${connection.accessToken}`
-            },
-            method: 'POST'
-        };
-
-        request.post(
-            `https://${options.hostname}${options.path}`,
-            {
-                json: body,
-                headers: {
-                    'Authorization': `Bearer ${connection.accessToken}`
-                }
-            },
-            (error: any, response: any, body: any) => {
-                if (error) {
-                    return console.error(error);
-                }
-                console.log('body', body);
-            }
-        );
-     });
 };
 
 const getSessionsForEvent = (connection: any, eventId: string) => {
