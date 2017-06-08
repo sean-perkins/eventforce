@@ -110,7 +110,7 @@ export let postEventRegistration = (req: Request, res: Response, next: NextFunct
                     sessionAttendees.push({
                         Attendee__c: ret.id,
                         Session__c: sessionId
-                    })
+                    });
                 }
 
                 connection.sobject(SessionAttendee.Model).insertBulk(sessionAttendees, (err: any, rets: any) => {
@@ -138,69 +138,35 @@ export let postRegistrationEmail = (req: Request, res: Response, next: NextFunct
                 }
             ]
         };
-        // console.log(`${SalesForceUser.InstanceUrl}/services/data/v32.0/query/`);
-        // connection.apex.get(`${SalesForceUser.InstanceUrl}/services/data/`, (err: any, ret: any) => {
-        //     if (err) {
-        //         return console.error(err);
-        //     }
-        //     console.log('yay!', ret);
-        // });
 
         const options = {
             hostname: 'na54.salesforce.com',
-            path: '/services/data/v39.0/quickActions',
+            path: '/services/data/v39.0/actions/standard/emailSimple',
             headers: {
                 'Authorization': `Bearer ${connection.accessToken}`
+            },
+            method: 'POST'
+        };
+
+        request.post(
+            `https://${options.hostname}${options.path}`,
+            {
+                json: body,
+                headers: {
+                    'Authorization': `Bearer ${connection.accessToken}`
+                }
+            },
+            (error: any, response: any, body: any) => {
+                if (error) {
+                    return console.error(error);
+                }
+                console.log('body', body);
             }
-        }
-
-        https.get(options, (res) => {
-            res.setEncoding('utf8');
-            res.on('data', (chunk) => {
-                console.log('chunk', chunk);
-            });
-
-        });
-
-        // const httpReq = http.request({
-        //     headers: {
-        //         'Authorization': `Bearer ${connection.accessToken}`
-        //     },
-        //     host: SalesForceUser.InstanceUrl,
-        //     path: '/services/data/v39.0/quickActions',
-        //     method: 'GET'
-        // }, (rel) => {
-        //     console.log('headers', JSON.stringify(rel.headers));
-        //     rel.setEncoding('utf8');
-        //     rel.on('data', (chunk) => {
-        //         console.log('body', chunk);
-        //     });
-        //     console.log('rel', rel);
-        // });
-
-        // httpReq.on('error', (err) => {
-        //     console.error('error', err);
-        // });
-        // connection.apex.post(`${SalesForceUser.InstanceUrl}/services/data/v39.0/actions/standard/emailSimple`, body, (err: any, ret: any) => {
-        //     if (err) {
-        //         return console.error(err);
-        //     }
-        //     console.log('yay!', ret);
-        // });
-
-        // console.log(jsforce);
-        // connection.sobject(Attendee.Model)
-        //     .quickAction('SendEmail')
-        //     .execute((err: any, result: any) => {
-        //         if (err) {
-        //             return console.error(err);
-        //         }
-        //         console.log('result!', result);
-        //     });
+        );
      });
 };
 
-let getSessionsForEvent = (connection: any, eventId: string) => {
+const getSessionsForEvent = (connection: any, eventId: string) => {
     return new Promise((resolve, reject) => {
         connection.sobject(Session.Model)
             .select('*')
