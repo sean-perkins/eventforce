@@ -2,6 +2,7 @@
 
 :host {
     display:block;
+    position:relative;
     padding:20px 0;
     border-bottom:1px solid $grey800;
 }
@@ -11,3 +12,15 @@
     font-size:22px;
     font-weight: 700;
 }
+
+.registrations {
+        position:absolute;
+        top:20px;
+        right:20px;
+        font-size:20px;
+        font-weight:600;
+        .label {
+            font-size:12px;
+            font-weight:400;
+        }
+    }

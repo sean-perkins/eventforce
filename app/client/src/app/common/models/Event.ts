@@ -48,4 +48,15 @@ export class Event {
         this.end = options.end || null;
         this.sessions = Array.isArray(options.sessions) ? options.sessions : [];
     }
+
+    get displayedRemainingSeats(): any {
+        if (this.registrationLimit) {
+            if (this.remainingSeats < 1) {
+                return this.registrationLimit;
+            }
+            return this.remainingSeats;
+        }
+        return '∞'
+    }
+
 }

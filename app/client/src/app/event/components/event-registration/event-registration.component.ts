@@ -1,8 +1,8 @@
 import { EventState } from './../../../store/states/event.state';
 import { Actions } from '@ngrx/effects';
-import { IAppState, getEventSessions, getEventRegistering } from './../../../store/app.state';
+import { IAppState, getEventSessions, getEventRegistering, getEventDetail } from './../../../store/app.state';
 import { Store } from '@ngrx/store';
-import { Session } from './../../../common/models/Session';
+import { Session, Event } from './../../../common/models/index';
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CustomValidators } from './../../../forms/index';
@@ -30,6 +30,8 @@ export class EventRegistrationComponent implements OnInit {
 
     sessions$: Observable<Session[]>;
 
+    event$: Observable<Event>;
+
     saving$: Observable<boolean>;
 
     constructor(
@@ -49,12 +51,21 @@ export class EventRegistrationComponent implements OnInit {
             lastName: ['', [Validators.required, Validators.maxLength(255)]],
             company: ['', Validators.maxLength(255)],
             phone: ['', CustomValidators.validPhone],
-            email: ['', [Validators.required, CustomValidators.validEmail]]
+            email: ['', [Validators.required, CustomValidators.validEmail]],
+            event: [null, Validators.required]
         });
 
+        this.event$ = this.store$.let(getEventDetail);
         this.sessions$ = this.store$.let(getEventSessions);
         this.saving$ = this.store$.let(getEventRegistering);
         this.store$.dispatch(new eventActions.FetchEventSessionsAction(this.eventId));
+        this.store$.dispatch(new eventActions.FindEventAction(this.eventId));
+
+        this.event$.subscribe(event => {
+            if (event !== null) {
+                this.form.controls['event'].setValue(event);
+            }
+        });
     }
 
     register(event: any, model: any, isValid: boolean) {

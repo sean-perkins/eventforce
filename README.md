@@ -32,7 +32,8 @@ The representation of events that users can register to.
 |End|`End__c`|Date/Time|The Event's end time.|
 |Status|`Status__c`|Picklist|The Event's availability status.|
 |Registration Limit|`Registration_Limit__c`|Number(18, 0)|The maximum number of allowed attendees.|
-|Remaining Seats|`Remaining_Seats__c`|Number(18, 0)|The number of available open seats for registration.|
+|Remaining Seats|`Remaining_Seats__c`|Formula (Number))|The number of available open seats for registration. [Click for formula.](https://github.com/sean-perkins/eventforce/wiki/Remaining-Seats-Formula-(SalesForce))|
+|Reserved Seats|`Reserved_Seats__c`|Roll-Up Summary (COUNT EventAttendee)|The number of EventAttendee joins to this event.|
 
 ---
 
@@ -47,6 +48,8 @@ The representation of sessions under an event that users can register to.
 |End|`End__c`|Date/Time|The Sessions's end time.|
 |Status|`Status__c`|Picklist|The Sessions's availability status.|
 |Registration Limit|`Registration_Limit__c`|Number(18, 0)|The maximum number of allowed attendees.|
+|Reserved Seats|`Reserved_Seats__c`|Roll-Up Summary (COUNT SessionAttendee)|The number of SessionAttendee joins to this event.|
+|Remaining Seats|`Remaining_Seats__c`|Formula (Number))|The number of available open seats for registration. [Click for formula.](https://github.com/sean-perkins/eventforce/wiki/Remaining-Seats-Formula-(SalesForce))
 |Event|`Event__c`|Master-Detail(Event)|The relationship join to the parent Event.|
 
 ---
@@ -74,6 +77,15 @@ The representation of the association between attendees and sessions (one-to-man
 |--|--|--|--|
 |Attendee|`Attendee__c`|Master-Detail(Attendee)|The relationship join to the attendee.|
 |Session|`Session__c`|Master-Detail(Session)|The relationship join to the session.|
+
+**EventAttendee**
+
+The representation of the association between attendees and events (one-to-many).
+
+|Field Label|API Name|Data Type|Description|
+|--|--|--|--|
+|Attendee|`Attendee__c`|Master-Detail(Attendee)|The relationship join to the attendee.|
+|Event|`Event__c`|Master-Detail(Session)|The relationship join to the event.|
 
 ### Testing
 
