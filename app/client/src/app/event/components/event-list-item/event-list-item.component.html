@@ -11,7 +11,7 @@
         <ef-event-status [status]="event.status"></ef-event-status>
     </div>
     <span class="registrations text-right">
-        <span [innerText]="event.remainingSeats || '∞'"></span>
+        <span [innerText]="event.displayedRemainingSeats"></span>
         <span>/</span>
         <span [innerText]="event.registrationLimit || '∞'"></span>
         <div class="label">Available Seats</div>

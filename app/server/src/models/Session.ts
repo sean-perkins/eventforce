@@ -32,6 +32,10 @@ export class Session {
      * The number of attendees for the session
      */
     attendees: Attendee[];
+    /**
+     * The number of remaining seats
+     */
+    remainingSeats: number;
 
     constructor(options: any = <Session>{}) {
         this.id = options.Id;
@@ -40,5 +44,7 @@ export class Session {
         this.start = options.Start__c;
         this.status = options.Status__c;
         this.attendees = Array.isArray(options.attendees) ? options.attendees : [];
+        this.remainingSeats = options.Remaining_Seats__c;
+        this.registrationLimit = options.Registration_Limit__c;
     }
 }

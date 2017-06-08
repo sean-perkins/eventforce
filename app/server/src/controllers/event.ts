@@ -5,7 +5,7 @@ import * as request from 'request';
 import * as jsforce from 'jsforce';
 import * as https from 'https';
 import { Response, Request, NextFunction } from 'express';
-import { SalesForceUser, Event, Session, Attendee, SessionAttendee } from './../models/index';
+import { SalesForceUser, Event, Session, Attendee, SessionAttendee, EventAttendee } from './../models/index';
 import { SalesForceEmail } from './../common/email/SalesForceEmail';
 
 const connection: any = new jsforce.Connection({
@@ -65,7 +65,7 @@ export let getEvent = (req: Request, res: Response, next: NextFunction) => {
                 }
                 connection.sobject(Session.Model)
                     .select('*')
-                    .where(`Event__c = '${req.params.id}'`)
+                    .where(`Event__c = '${req.params.id}' AND Status__c != 'Draft'`)
                     .execute((err: any, sessions: any[]) => {
                         if (err) {
                             return console.error(err);
@@ -107,55 +107,32 @@ export let postEventRegistration = (req: Request, res: Response, next: NextFunct
                     return console.error(err);
                 }
                 const sessionAttendees: any = [];
-
-
                 for (const sessionId of req.body.sessions) {
                     sessionAttendees.push({
                         Attendee__c: ret.id,
                         Session__c: sessionId
                     });
                 }
-
-                let displayedSessions = ``;
-                for (const session of event.sessions) {
-                    displayedSessions += `- ${session.name} (${session.start} to ${session.end})`;
-                    displayedSessions += '\n                    ';
-                }
-
-                connection.sobject(SessionAttendee.Model).insertBulk(sessionAttendees, (err: any, rets: any) => {
-                    if (err) {
-                        return console.error(err);
-                    }
-                    SalesForceEmail.send(
-                        connection,
-                        attendee.email,
-                        'Eventforce: New Event Registration',
-                    `
-                    ${attendee.firstName} ${attendee.lastName}:
-
-                    Congratulations! You have successfully registered to the event: ${event.name}.
-
-                    The event starts at ${event.start} and ends at ${event.end}.
-
-                    The sessions you have registered to are:
-                    ${displayedSessions}
-
-                    Thanks!
-                    Eventforce Support
-                    noreply@eventforce.com
-                    `).then(() => {
-                        res.json({
-                            status: 200,
-                            message: 'success'
+                postEventAttendee(connection, {
+                    Attendee__c: ret.id,
+                    Event__c: event.id,
+                }).then(() => {
+                    postEmailNotification(connection, sessionAttendees, attendee, event)
+                        .then(() => {
+                            res.json({
+                                status: 200,
+                                message: 'Success'
+                            });
+                        }, (error) => {
+                            res.json(error);
                         });
-                        // TODO update event and sessions
-                    }, () => {
-                        res.json({
-                            status: 500,
-                            message: 'Error sending email registrations.'
-                        });
+                }, () => {
+                    res.json({
+                        status: 500,
+                        message: 'Error: Failed to save EventAttendee.'
                     });
                 });
+
             });
     });
 };
@@ -164,12 +141,66 @@ const getSessionsForEvent = (connection: any, eventId: string) => {
     return new Promise((resolve, reject) => {
         connection.sobject(Session.Model)
             .select('*')
-            .where(`Event__c = '${eventId}'`)
+            .where(`Event__c = '${eventId}' AND Status__c != 'Draft'`)
             .execute((err: any, sessions: any[]) => {
                 if (err) {
                     return reject(err);
                 }
                 resolve(sessions.map(session => new Session(session)));
             });
+    });
+};
+
+
+const postEventAttendee = (connection: any, payload: any) => {
+    return new Promise((resolve, reject) => {
+         connection.sobject(EventAttendee.Model)
+            .create(payload, (err: any, ret: any) => {
+                if (err) {
+                     console.error(err);
+                     return reject(err);
+                }
+                resolve(ret);
+            });
+    });
+};
+
+const postEmailNotification = (connection: any, payloads: any, attendee: any, event: any) => {
+    let displayedSessions = ``;
+    for (const session of event.sessions) {
+        displayedSessions += `- ${session.name} (${session.start} to ${session.end})`;
+        displayedSessions += '\n                    ';
+    }
+    return new Promise((resolve, reject) => {
+        connection.sobject(SessionAttendee.Model).insertBulk(payloads, (err: any, rets: any) => {
+            if (err) {
+                return console.error(err);
+            }
+            SalesForceEmail.send(
+                connection,
+                attendee.email,
+                'Eventforce: New Event Registration',
+            `
+            ${attendee.firstName} ${attendee.lastName}:
+
+            Congratulations! You have successfully registered to the event: ${event.name}.
+
+            The event starts at ${event.start} and ends at ${event.end}.
+
+            The sessions you have registered to are:
+            ${displayedSessions}
+
+            Thanks!
+            Eventforce Support
+            noreply@eventforce.com
+            `).then(() => {
+                resolve();
+            }, () => {
+                reject({
+                    status: 500,
+                    message: 'Error sending email registrations.'
+                });
+            });
+        });
     });
 };
