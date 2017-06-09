@@ -1,13 +1,15 @@
-<div class="event-row" fxLayout="row" fxLayoutAlign="space-between center"
+<div class="event-row"
+    fxLayout="row" fxLayoutAlign="space-between center"
+    fxLayoutWrap.sm="true" fxLayoutAlign.sm="space-around start"
     *ngIf="event">
-    <div fxFlex="10%" class="text-left date-container">
+    <div fxFlex="10%" fxFlex.xs="100%" class="text-left date-container">
         <div class="start-date vertical-center left-margin-4">
             <span class="day" [innerText]="event.start | date:'dd'"></span>
             <div class="month" [innerText]="event.start | date:'MMMM'"></div>
         </div>
     </div>
-    <div fxFlex="85%">
-        <h2 [innerText]="event.name"></h2>
+    <div fxFlex="85%" fxFlex.xs="100%">
+        <h2 class="title" [innerText]="event.name"></h2>
         <ef-event-status [status]="event.status"></ef-event-status>
     </div>
     <span class="registrations text-right">

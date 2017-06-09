@@ -6,10 +6,13 @@ html, body {
     margin: 0;
     font-family: 'Open Sans', sans-serif;
     height:100%;
+    position: relative;
+    // padding-bottom: 50px;
+
 }
 
 body {
-    background-color:$blue500;
+    background-color:#FAFAFA;
 }
 
 @import 'assets/scss/utils/index';

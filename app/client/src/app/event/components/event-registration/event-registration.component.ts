@@ -1,13 +1,14 @@
-import { EventState } from './../../../store/states/event.state';
-import { Actions } from '@ngrx/effects';
-import { IAppState, getEventSessions, getEventRegistering, getEventDetail } from './../../../store/app.state';
-import { Store } from '@ngrx/store';
-import { Session, Event } from './../../../common/models/index';
-import { Observable } from 'rxjs/Observable';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CustomValidators } from './../../../forms/index';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MdSnackBar } from '@angular/material';
+import { Observable } from 'rxjs/Observable';
+import { Actions } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
+import { IAppState, getEventSessions, getEventRegistering, getEventDetail } from './../../../store/app.state';
+import { Session, Event } from './../../../common/models/index';
+import { CustomValidators } from './../../../forms/index';
+import { EventState } from './../../../store/states/event.state';
 
 import * as eventActions from './../../../store/actions/event.action';
 
@@ -39,7 +40,8 @@ export class EventRegistrationComponent implements OnInit {
         private fb: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
-        private actions: Actions) { }
+        private actions: Actions,
+        private snackBar: MdSnackBar) { }
 
     ngOnInit() {
         this.eventId = this.route.snapshot.params['id'];
@@ -83,6 +85,12 @@ export class EventRegistrationComponent implements OnInit {
                 .do(() => {
                     console.error('There was an issue! :(');
                 }).subscribe();
+        }
+        else {
+            this.snackBar.open('Please correct the issues with your input.', null, {
+                duration: 3000,
+                politeness: 'assertive'
+            });
         }
     }
 

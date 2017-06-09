@@ -17,16 +17,34 @@ $min-height: 120px;
     &:hover {
         background: $grey800;
     }
+    @media(max-width: 400px) {
+        padding-bottom:40px;
+        padding-left:20px;
+        .title {
+            font-size:22px;
+            margin:10px 0;
+        }
+    }
     .date-container {
         position:relative;
-        .day {
-            font-weight:800;
-            font-size:42px;
+        min-height:$min-height;
+        @media(max-width: 400px) {
+            min-height: 70px;
+            .day {
+                font-size:28px;
+            }
+            .start-date {
+                margin-left:0;
+            }
         }
-        .month {
-            font-size:12px;
-            text-transform: uppercase;
-        }
+    }
+    .day {
+        font-weight:800;
+        font-size:42px;
+    }
+    .month {
+        font-size:12px;
+        text-transform: uppercase;
     }
     .registrations {
         position:absolute;
