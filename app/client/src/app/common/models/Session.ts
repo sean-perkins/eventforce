@@ -26,7 +26,7 @@ export class Session {
     }
 
     get displayedRemainingSeats(): any {
-        if (this.registrationLimit) {
+        if (this.registrationLimit && this.registrationLimit !== null) {
             if (this.remainingSeats < 1) {
                 return this.registrationLimit;
             }

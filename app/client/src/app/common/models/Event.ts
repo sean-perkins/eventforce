@@ -1,3 +1,4 @@
+import { Session } from './Session';
 
 export class Event {
     /**
@@ -46,11 +47,12 @@ export class Event {
         this.remainingSeats = options.remainingSeats || null;
         this.start = options.start || null;
         this.end = options.end || null;
-        this.sessions = Array.isArray(options.sessions) ? options.sessions : [];
+        this.sessions = Array.isArray(options.sessions) ?
+            options.sessions.map(session => new Session(session)) : [];
     }
 
     get displayedRemainingSeats(): any {
-        if (this.registrationLimit) {
+        if (this.registrationLimit && this.registrationLimit !== null) {
             if (this.remainingSeats < 1) {
                 return this.registrationLimit;
             }

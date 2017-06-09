@@ -24,6 +24,7 @@ export class EventDetailComponent implements OnInit {
     ngOnInit() {
         const id = this.route.snapshot.params['id'];
         this.event$ = this.store$.let(getEventDetail);
+        this.store$.dispatch(new eventAction.InitAction);
         this.store$.dispatch(new eventAction.FindEventAction(id));
     }
 

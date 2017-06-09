@@ -1,5 +1,10 @@
-
+<md-input-container>
+    <input mdInput type="search" #search placeholder="Search..." />
+</md-input-container>
+<h5 class="text-center"
+    *ngIf="search.value.length > 0 && (events$ | async | eventSearch: search.value).length === 0"
+    >There are no events that match your search term.</h5>
 <ef-event-list-item
-    *ngFor="let event of events$ | async"
+    *ngFor="let event of (events$ | async | eventSearch: search.value)"
     [event]="event"
     [routerLink]="['/event/', event.id]"></ef-event-list-item>

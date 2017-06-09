@@ -1,6 +1,6 @@
 <!-- TODO list sessions that users can select -->
 <form novalidate [formGroup]="form" (ngSubmit)="register($event, form.value, form.valid)">
-    <h5>Available Sessions</h5>
+    <h5>Event Sessions</h5>
     <ef-session-list-item *ngFor="let session of sessions$ | async"
         [session]="session"
         [control]="form.controls.sessions"

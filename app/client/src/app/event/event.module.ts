@@ -11,6 +11,7 @@ import { EventListItemComponent } from './components/event-list-item/event-list-
 import { EventStatusComponent } from './components/event-status/event-status.component';
 import { EventRegistrationComponent } from './components/event-registration/event-registration.component';
 import { EventRegistrationSuccessComponent } from './components/event-registration-success/event-registration-success.component';
+import { EventSearchPipe } from './pipes/event-search.pipe';
 
 @NgModule({
     imports: [
@@ -27,7 +28,8 @@ import { EventRegistrationSuccessComponent } from './components/event-registrati
         EventListItemComponent,
         EventStatusComponent,
         EventRegistrationComponent,
-        EventRegistrationSuccessComponent
+        EventRegistrationSuccessComponent,
+        EventSearchPipe
     ]
 })
 export class EventModule { }

@@ -8,6 +8,7 @@ export function eventsReducer(
             case EventState.ActionTypes.INIT:
                 return (<any>Object).assign({}, state, {
                     events: [],
+                    eventDetail: null,
                     loading: true
                 });
             case EventState.ActionTypes.FIND_COMPLETE:

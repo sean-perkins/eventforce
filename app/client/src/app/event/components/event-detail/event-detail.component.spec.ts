@@ -13,6 +13,20 @@ class MockSessionListItemComponent {
     @Input() session: any;
 }
 
+@Component({
+    selector: 'ef-event-status',
+    template: ``
+})
+class MockEventStatusComponent {
+    @Input() status: string;
+}
+
+@Component({
+    selector: 'md-icon',
+    template: ``
+})
+class MockInputComponent {}
+
 describe('EventDetailComponent', () => {
     let component: EventDetailComponent;
     let fixture: ComponentFixture<EventDetailComponent>;
@@ -21,7 +35,9 @@ describe('EventDetailComponent', () => {
         TestBed.configureTestingModule({
             declarations: [
                 EventDetailComponent,
-                MockSessionListItemComponent
+                MockSessionListItemComponent,
+                MockEventStatusComponent,
+                MockInputComponent
             ],
             imports: [
                 RouterTestingModule,
