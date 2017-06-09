@@ -3,6 +3,9 @@
     "version": "1.0.0",
     "description": "Eventforce",
     "main": "index.js",
+    "engines": {
+        "node": "7.4.0"
+    },
     "directories": {
         "test": "test"
     },
@@ -10,10 +13,11 @@
         "start": "npm run build.server && npm run build.client && npm run serve",
         "setup": "cd app/server && npm i && cd ../client && npm i",
         "serve": "cd app/server && npm run serve",
+        "start.dist": "cd app/server && npm run serve",
         "start.server": "cd app/server && npm run start",
         "start.client": "cd app/client && npm run start",
-        "build.server": "cd app/server && npm run build",
-        "build.client": "cd app/client && ng build -prod -aot"
+        "build.server": "cd app/server && npm i && npm run build",
+        "build.client": "cd app/client && npm i && ng build -prod -aot --base-href ."
     },
     "repository": {
         "type": "git",
