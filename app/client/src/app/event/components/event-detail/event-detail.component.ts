@@ -1,4 +1,4 @@
-import { IAppState, getEventDetail } from './../../../store/app.state';
+import { IAppState, getEventDetail, getEventsLoading } from './../../../store/app.state';
 import { Store } from '@ngrx/store';
 import { Event } from './../../../common/models/Event';
 import { Observable } from 'rxjs/Observable';
@@ -16,6 +16,8 @@ export class EventDetailComponent implements OnInit {
 
     event$: Observable<Event>;
 
+    loading$: Observable<boolean>;
+
     constructor(
         private route: ActivatedRoute,
         private store$: Store<IAppState>
@@ -24,6 +26,7 @@ export class EventDetailComponent implements OnInit {
     ngOnInit() {
         const id = this.route.snapshot.params['id'];
         this.event$ = this.store$.let(getEventDetail);
+        this.loading$ = this.store$.let(getEventsLoading);
         this.store$.dispatch(new eventAction.InitAction);
         this.store$.dispatch(new eventAction.FindEventAction(id));
     }

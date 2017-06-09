@@ -28,6 +28,14 @@ class MockEventSearchPipe {
     }
 }
 
+@Component({
+    selector: 'ef-loading-spinner',
+    template: ``
+})
+class MockLoadingSpinnerComponent {
+    @Input() message: string;
+}
+
 describe('EventListComponent', () => {
     let component: EventListComponent;
     let fixture: ComponentFixture<EventListComponent>;
@@ -38,6 +46,7 @@ describe('EventListComponent', () => {
                 EventListComponent,
                 MockEventListItemComponent,
                 MockInputContainerComponent,
+                MockLoadingSpinnerComponent,
                 MockEventSearchPipe
             ],
             imports: [

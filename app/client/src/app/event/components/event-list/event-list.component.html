@@ -8,3 +8,6 @@
     *ngFor="let event of (events$ | async | eventSearch: search.value)"
     [event]="event"
     [routerLink]="['/event/', event.id]"></ef-event-list-item>
+
+<ef-loading-spinner *ngIf="loading$ | async"
+    message="Loading Events..."></ef-loading-spinner>

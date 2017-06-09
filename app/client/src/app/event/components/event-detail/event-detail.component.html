@@ -33,3 +33,5 @@
             [session]="session"></ef-session-list-item>
     </div>
 </div>
+<ef-loading-spinner *ngIf="loading$ | async"
+    message="Loading Event Detail..."></ef-loading-spinner>

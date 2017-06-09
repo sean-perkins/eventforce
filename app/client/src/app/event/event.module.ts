@@ -1,3 +1,4 @@
+import { LoadersModule } from './../loaders/loaders.module';
 import { SessionModule } from './../session/session.module';
 import { MaterialModule } from '@angular/material';
 import { EventRoutingModule } from './event-routing.module';
@@ -20,6 +21,7 @@ import { EventSearchPipe } from './pipes/event-search.pipe';
         FlexLayoutModule,
         EventRoutingModule,
         SessionModule,
+        LoadersModule,
         ForceFormsModule,
     ],
     declarations: [

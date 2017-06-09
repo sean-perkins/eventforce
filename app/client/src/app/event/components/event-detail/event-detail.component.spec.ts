@@ -27,6 +27,14 @@ class MockEventStatusComponent {
 })
 class MockInputComponent {}
 
+@Component({
+    selector: 'ef-loading-spinner',
+    template: ``
+})
+class MockLoadingSpinnerComponent {
+    @Input() message: string;
+}
+
 describe('EventDetailComponent', () => {
     let component: EventDetailComponent;
     let fixture: ComponentFixture<EventDetailComponent>;
@@ -37,6 +45,7 @@ describe('EventDetailComponent', () => {
                 EventDetailComponent,
                 MockSessionListItemComponent,
                 MockEventStatusComponent,
+                MockLoadingSpinnerComponent,
                 MockInputComponent
             ],
             imports: [
