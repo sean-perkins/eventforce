@@ -15,13 +15,20 @@ class MockMdToolbarComponent { }
 })
 class MockSideNavContainerComponent {}
 
+@Component({
+    selector: 'ef-footer',
+    template: ``
+})
+class MockFooterComponent {}
+
 describe('AppComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [
                 AppComponent,
                 MockMdToolbarComponent,
-                MockSideNavContainerComponent
+                MockSideNavContainerComponent,
+                MockFooterComponent
             ],
             imports: [
                 RouterTestingModule
