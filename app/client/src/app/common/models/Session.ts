@@ -37,7 +37,7 @@ export class Session {
             if (this.remainingSeats < 1) {
                 return this.registrationLimit;
             }
-            return this.remainingSeats;
+            return this.registrationLimit - this.remainingSeats;
         }
         return '∞'
     }

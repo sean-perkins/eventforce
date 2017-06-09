@@ -56,7 +56,7 @@ export class Event {
             if (this.remainingSeats < 1) {
                 return this.registrationLimit;
             }
-            return this.remainingSeats;
+            return this.registrationLimit - this.remainingSeats;
         }
         return '∞'
     }
