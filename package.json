@@ -7,9 +7,12 @@
         "test": "test"
     },
     "scripts": {
+        "start": "npm run build.server && npm run build.client && npm run serve",
         "setup": "cd app/server && npm i && cd ../client && npm i",
+        "serve": "cd app/server && npm run serve",
         "start.server": "cd app/server && npm run start",
         "start.client": "cd app/client && npm run start",
+        "build.server": "cd app/server && npm run build",
         "build.client": "cd app/client && ng build -prod -aot"
     },
     "repository": {
