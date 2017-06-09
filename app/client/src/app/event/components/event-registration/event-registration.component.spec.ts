@@ -1,3 +1,4 @@
+import { Actions } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { RouterTestingModule } from '@angular/router/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
@@ -27,6 +28,7 @@ class MockInputContainerComponent {}
 })
 class MockSessionListItemComponent {
     @Input() session: any;
+    @Input() control: any;
 }
 
 describe('EventRegistrationComponent', () => {
@@ -46,6 +48,9 @@ describe('EventRegistrationComponent', () => {
                 ReactiveFormsModule,
                 RouterTestingModule,
                 StoreModule.provideStore(AppReducer),
+            ],
+            providers: [
+                { provide: Actions, useValue: {}}
             ]
         })
             .compileComponents();
