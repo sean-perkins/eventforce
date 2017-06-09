@@ -1,11 +1,12 @@
 <!-- TODO list sessions that users can select -->
 <form novalidate [formGroup]="form" (ngSubmit)="register($event, form.value, form.valid)">
-    <h5>Available Sessions</h5>
+    <h4>Event Sessions</h4>
+    <h5 *ngIf="(sessions$ | async).length < 1 && !(loading$ | async)">There are no sessions for this event.</h5>
     <ef-session-list-item *ngFor="let session of sessions$ | async"
         [session]="session"
         [control]="form.controls.sessions"
         ></ef-session-list-item>
-    <h5>Your Information</h5>
+    <h4>Your Information</h4>
     <div fxLayout="row" fxLayoutAlign="space-between">
         <div fxFlex="45%">
             <ef-input [control]="form.controls.firstName" [submitted]="submitted">
@@ -48,7 +49,7 @@
         </div>
     </div>
     <div class="text-right">
-        <button md-button type="button" [routerLink]="['/events']">Cancel</button>
+        <button md-button type="button" [routerLink]="['/event', form.controls.id.value]">Cancel</button>
         <button md-raised-button
             [disabled]="saving$ | async"
             color="primary"

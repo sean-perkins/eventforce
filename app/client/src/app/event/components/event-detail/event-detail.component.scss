@@ -3,3 +3,23 @@
 .section-header {
     border-bottom:3px solid $grey800;
 }
+
+.top-bar {
+    height: 40px;
+    a {
+        text-decoration:none;
+        color: $blue500;
+        position:relative;
+        span {
+            padding-left:30px;
+        }
+    }
+}
+
+.inner-container {
+    background: $grey900;
+    border: 1px solid $grey800;
+    padding: 40px;
+    position:relative;
+    min-height:300px;
+}

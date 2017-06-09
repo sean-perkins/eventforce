@@ -1,3 +1,4 @@
+import { FooterModule } from './footer/footer.module';
 import { ForceStoreModule } from './store/store.module';
 import { StoreModule } from '@ngrx/store';
 import { AppRoutingModule } from './app-routing.module';
@@ -20,6 +21,7 @@ import { AppComponent } from './app.component';
         FormsModule,
         HttpModule,
         MaterialModule,
+        FooterModule,
         ForceStoreModule,
         StoreModule.provideStore(AppReducer),
         EventModule

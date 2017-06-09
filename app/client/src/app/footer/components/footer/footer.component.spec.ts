@@ -1,29 +1,29 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
-import { SessionListItemComponent } from './session-list-item.component';
+import { FooterComponent } from './footer.component';
 
 @Component({
-    selector: 'md-checkbox',
+    selector: 'md-icon',
     template: ``
 })
-class MockCheckboxComponent {}
+class MockIconComponent {}
 
-describe('SessionListItemComponent', () => {
-    let component: SessionListItemComponent;
-    let fixture: ComponentFixture<SessionListItemComponent>;
+describe('FooterComponent', () => {
+    let component: FooterComponent;
+    let fixture: ComponentFixture<FooterComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [
-                SessionListItemComponent,
-                MockCheckboxComponent
+                FooterComponent,
+                MockIconComponent
             ]
         })
             .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(SessionListItemComponent);
+        fixture = TestBed.createComponent(FooterComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

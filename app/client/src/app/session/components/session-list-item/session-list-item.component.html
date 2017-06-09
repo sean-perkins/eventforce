@@ -1,6 +1,6 @@
 <div fxLayout="row" fxLayoutAlign="space-between center" *ngIf="session" [class.soldout]="session.soldout">
     <div fxFlex="10%" *ngIf="control">
-        <md-checkbox *ngIf="!session.soldout"
+        <md-checkbox *ngIf="session.canSelect"
             (click)="toggleSession()"></md-checkbox>
     </div>
     <div fxFlex="20%">
@@ -15,6 +15,6 @@
         <span [innerText]="session.displayedRemainingSeats"></span>
         <span>/</span>
         <span [innerText]="session.registrationLimit || '∞'"></span>
-        <div class="label">Available Seats</div>
+        <div class="label">Attendees</div>
     </span>
 </div>

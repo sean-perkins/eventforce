@@ -1,5 +1,16 @@
 @import '~assets/scss/colors';
 
 md-sidenav-container {
-    height:100%;
+    height: 88vh;
+    overflow-y: scroll;
+}
+
+md-toolbar {
+    /deep/ {
+        @media(max-width: 320px) {
+            .mat-toolbar-row {
+                height:65px;
+            }
+        }
+    }
 }

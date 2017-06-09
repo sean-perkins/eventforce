@@ -1,3 +1,4 @@
+import { LoadersModule } from './../loaders/loaders.module';
 import { SessionModule } from './../session/session.module';
 import { MaterialModule } from '@angular/material';
 import { EventRoutingModule } from './event-routing.module';
@@ -11,6 +12,7 @@ import { EventListItemComponent } from './components/event-list-item/event-list-
 import { EventStatusComponent } from './components/event-status/event-status.component';
 import { EventRegistrationComponent } from './components/event-registration/event-registration.component';
 import { EventRegistrationSuccessComponent } from './components/event-registration-success/event-registration-success.component';
+import { EventSearchPipe } from './pipes/event-search.pipe';
 
 @NgModule({
     imports: [
@@ -19,6 +21,7 @@ import { EventRegistrationSuccessComponent } from './components/event-registrati
         FlexLayoutModule,
         EventRoutingModule,
         SessionModule,
+        LoadersModule,
         ForceFormsModule,
     ],
     declarations: [
@@ -27,7 +30,8 @@ import { EventRegistrationSuccessComponent } from './components/event-registrati
         EventListItemComponent,
         EventStatusComponent,
         EventRegistrationComponent,
-        EventRegistrationSuccessComponent
+        EventRegistrationSuccessComponent,
+        EventSearchPipe
     ]
 })
 export class EventModule { }

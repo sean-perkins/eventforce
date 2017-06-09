@@ -8,11 +8,22 @@ export function eventsReducer(
             case EventState.ActionTypes.INIT:
                 return (<any>Object).assign({}, state, {
                     events: [],
+                    eventDetail: null,
+                    loading: true
+                });
+            case EventState.ActionTypes.FIND:
+                return (<any>Object).assign({}, state, {
+                    eventDetail: null,
+                    loading: true
+                });
+            case EventState.ActionTypes.FETCH:
+                return (<any>Object).assign({}, state, {
                     loading: true
                 });
             case EventState.ActionTypes.FIND_COMPLETE:
                 return (<any>Object).assign({}, state, {
-                    eventDetail: action.payload
+                    eventDetail: action.payload,
+                    loading: false
                 });
             case EventState.ActionTypes.FETCH_COMPLETE:
                 return (<any>Object).assign({}, state, {

@@ -1,0 +1,7 @@
+@import '~assets/scss/colors';
+:host {
+    display: block;
+    background: $grey900;
+    border: 1px solid $grey800;
+    padding: 40px;
+}
