@@ -22,6 +22,7 @@ export class EventListComponent implements OnInit {
     ngOnInit() {
         this.events$ = this.store$.let(getEvents);
         this.loading$ = this.store$.let(getEventsLoading);
+        this.store$.dispatch(new eventActions.InitAction);
         this.store$.dispatch(new eventActions.FetchEventsAction);
     }
 
