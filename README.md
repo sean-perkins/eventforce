@@ -78,6 +78,8 @@ The representation of the association between attendees and sessions (one-to-man
 |Attendee|`Attendee__c`|Master-Detail(Attendee)|The relationship join to the attendee.|
 |Session|`Session__c`|Master-Detail(Session)|The relationship join to the session.|
 
+---
+
 **EventAttendee**
 
 The representation of the association between attendees and events (one-to-many).
