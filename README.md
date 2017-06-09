@@ -2,6 +2,10 @@
 
 A Salesforce integration built on-top of NodeJS and Angular (4+). The integration allows Salesforce administrators to create events, sessions and attendees through their Salesforce instance. Users (non-salesforce) can view available events and event details through the Angular app. They may register to an event, which will tie back into the Salesforce environment.
 
+<a href="https://pure-inlet-93468.herokuapp.com">
+    <img src="http://www.codecheese.com/wp-content/uploads/heroku-logo.png">
+</a>
+
 ### Technologies
 - Angular (4+)
 - NodeJS
