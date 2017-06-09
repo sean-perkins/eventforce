@@ -40,6 +40,7 @@
     "bcrypt-nodejs": "^0.0.3",
     "body-parser": "^1.15.2",
     "compression": "^1.6.2",
+    "dateformat": "^2.0.0",
     "dotenv": "^2.0.0",
     "ejs": "^2.5.6",
     "errorhandler": "^1.4.3",

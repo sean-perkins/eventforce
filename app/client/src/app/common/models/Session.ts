@@ -8,6 +8,8 @@ export class Session {
 
     end: string;
 
+    status: string;
+
     registrationLimit: number;
 
     remainingSeats: number;
@@ -17,12 +19,17 @@ export class Session {
         this.name = options.name || null;
         this.start = options.start || null;
         this.end = options.end || null;
+        this.status = options.status || null;
         this.remainingSeats = options.remainingSeats || null;
         this.registrationLimit = options.registrationLimit || null;
     }
 
     get soldout(): boolean {
         return this.registrationLimit && this.remainingSeats < 1;
+    }
+
+    get canSelect(): boolean {
+        return !this.soldout && this.status === 'Open';
     }
 
     get displayedRemainingSeats(): any {

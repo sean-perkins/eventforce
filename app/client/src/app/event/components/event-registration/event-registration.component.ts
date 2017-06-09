@@ -5,7 +5,12 @@ import { MdSnackBar } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import { Actions } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { IAppState, getEventSessions, getEventRegistering, getEventDetail } from './../../../store/app.state';
+import {
+    IAppState,
+    getEventSessions,
+    getEventRegistering,
+    getEventsLoading,
+    getEventDetail } from './../../../store/app.state';
 import { Session, Event } from './../../../common/models/index';
 import { CustomValidators } from './../../../forms/index';
 import { EventState } from './../../../store/states/event.state';
@@ -35,6 +40,8 @@ export class EventRegistrationComponent implements OnInit {
 
     saving$: Observable<boolean>;
 
+    loading$: Observable<boolean>;
+
     constructor(
         private store$: Store<IAppState>,
         private fb: FormBuilder,
@@ -45,6 +52,7 @@ export class EventRegistrationComponent implements OnInit {
 
     ngOnInit() {
         this.eventId = this.route.snapshot.params['id'];
+        this.loading$ = this.store$.let(getEventsLoading);
 
         this.form = this.fb.group({
             id: [this.eventId],

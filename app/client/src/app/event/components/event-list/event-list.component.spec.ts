@@ -1,3 +1,5 @@
+import { By } from '@angular/platform-browser';
+import { Observable } from 'rxjs/Observable';
 import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
@@ -66,4 +68,27 @@ describe('EventListComponent', () => {
     it('should create', () => {
         expect(component).toBeTruthy();
     });
+
+    describe('loading spinner', () => {
+
+        it('should be visible when loading$ is `true`', () => {
+            fixture.componentInstance.loading$ = Observable.of(true);
+            fixture.detectChanges();
+            fixture.whenStable().then(() => {
+                const loader = fixture.debugElement.query(By.css('ef-loading-spinner'));
+                expect(loader.nativeElement).not.toBeNull();
+            });
+        });
+
+        it('should be hidden when loading$ is `false`', () => {
+            fixture.componentInstance.loading$ = Observable.of(false);
+            fixture.detectChanges();
+            fixture.whenStable().then(() => {
+                const loader = fixture.debugElement.query(By.css('ef-loading-spinner'));
+                expect(loader.nativeElement).toBeNull();
+            });
+        });
+
+    });
+
 });

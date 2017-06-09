@@ -6,7 +6,7 @@ import * as jsforce from 'jsforce';
 import * as https from 'https';
 import { Response, Request, NextFunction } from 'express';
 import { SalesForceUser, Event, Session, Attendee, SessionAttendee, EventAttendee } from './../models/index';
-import { SalesForceEmail } from './../common/email/SalesForceEmail';
+import { SalesForceEmail, DateFormat } from './../common/index';
 
 const connection: any = new jsforce.Connection({
     instanceUrl: SalesForceUser.InstanceUrl
@@ -168,8 +168,8 @@ const postEventAttendee = (connection: any, payload: any) => {
 const postEmailNotification = (connection: any, payloads: any, attendee: any, event: any) => {
     let displayedSessions = ``;
     for (const session of event.sessions) {
-        displayedSessions += `- ${session.name} (${session.start} to ${session.end})`;
-        displayedSessions += '\n                    ';
+        displayedSessions += `- ${session.name} (${DateFormat.format(session.start)} to ${DateFormat.format(session.end)})`;
+        displayedSessions += '\n            ';
     }
     return new Promise((resolve, reject) => {
         connection.sobject(SessionAttendee.Model).insertBulk(payloads, (err: any, rets: any) => {
@@ -185,7 +185,7 @@ const postEmailNotification = (connection: any, payloads: any, attendee: any, ev
 
             Congratulations! You have successfully registered to the event: ${event.name}.
 
-            The event starts at ${event.start} and ends at ${event.end}.
+            The event starts at ${DateFormat.format(event.start)} and ends at ${DateFormat.format(event.end)}.
 
             The sessions you have registered to are:
             ${displayedSessions}

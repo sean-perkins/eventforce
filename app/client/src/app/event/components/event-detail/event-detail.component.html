@@ -3,7 +3,7 @@
         <md-icon class="vertical-center">keyboard_backspace</md-icon>
         <span>Back to Events</span></a>
 </div>
-<div *ngFor="let event of [event$ | async]">
+<div class="inner-container" *ngFor="let event of [event$ | async]">
     <div *ngIf="event !== null">
         <div class="section-header">
             <div fxLayout="row">
@@ -13,6 +13,7 @@
                 </div>
                 <div fxFlex="20%" class="text-right">
                     <button *ngIf="event.status === 'Open'"
+                        class="register-btn"
                         md-raised-button color="primary"
                         [routerLink]="['/event', event.id, 'register']">Register</button>
                     <ef-event-status *ngIf="event.status !== 'Open'"
@@ -32,6 +33,6 @@
         <ef-session-list-item *ngFor="let session of event.sessions"
             [session]="session"></ef-session-list-item>
     </div>
+    <ef-loading-spinner *ngIf="loading$ | async"
+        message="Loading Event Detail..."></ef-loading-spinner>
 </div>
-<ef-loading-spinner *ngIf="loading$ | async"
-    message="Loading Event Detail..."></ef-loading-spinner>
